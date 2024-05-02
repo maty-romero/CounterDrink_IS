@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\hasMany;
 
 class Proveedor extends Model
 {
@@ -15,5 +16,10 @@ class Proveedor extends Model
         "email"
     ];
     protected $table = "proveedores";
-    
+
+    // 1:M proveedor-producto
+    public function producto(): hasMany
+    {
+        return $this->hasMany(Producto::class);
+    }
 }
