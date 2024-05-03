@@ -21,7 +21,7 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">CounterDrink</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                    <p class="lead fw-normal text-white-50 mb-0">Explora el mundo en cada sorbo</p>
                 </div>
             </div>
         </header>
@@ -29,7 +29,7 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    @for ($i = 0; $i <= 4; $i++)
+                    @for ($i = 0; $i <= 7; $i++)
                         <x-cliente.itemCard />
                     @endfor
                 </div>
@@ -41,7 +41,8 @@
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
+        <!-- Core theme JS
         <script src="js/scripts.js"></script>
+        -->
     </body>
 </html>

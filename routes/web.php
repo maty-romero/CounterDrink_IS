@@ -1,26 +1,28 @@
 <?php
 
+use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+//Auth::routes();
 
+// Rutas Client side
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('home');  // No muy necesario -> Ver flujo de autenticacion
+ 
 Route::get('/', function () {
     return view('cliente/index');
 });
+Route::get('/show', [ProductoController::class, 'show'])->name('show_product');
 
-Route::get('/show', function () {
-    return view('cliente/show');
-})->name("showProduct");;
 
-Auth::routes();
+// Rutas Administration side
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+
+
+
