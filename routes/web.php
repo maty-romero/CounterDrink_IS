@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/show', function () {
     return view('cliente/show');
-});
+})->name("showProduct");;
 
 Auth::routes();
 
