@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('administrativa.principal');
+    return view('administrativa.Venta');
 });
 Auth::routes();
 
