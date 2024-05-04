@@ -1,7 +1,7 @@
 <div class="col mb-5">
     <div class="card h-100">
         <!-- Sale badge-->
-        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+        <div class="badge bg-warning text-black position-absolute" style="top: 0.5rem; right: 0.5rem">En stock</div>
         <!-- Product image 450x300 -->
         <img class="card-img-top" src="https://carrefourar.vtexassets.com/arquivos/ids/273585/7790717152002_01.jpg?v=638113013430030000" width="450" height="250" alt="..." />
         <!-- Product details-->

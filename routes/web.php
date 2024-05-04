@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
 //Auth::routes();
@@ -14,6 +15,8 @@ Route::get('/', function () {
     return view('cliente/index');
 });
 Route::get('/show', [ProductoController::class, 'show'])->name('show_product');
+Route::get('/carrito', [VentaController::class, 'getCarrito'])->name('show_carrito');
+
 
 
 // Rutas Administration side
