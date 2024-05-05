@@ -33,7 +33,23 @@
                             </div>
                             <hr class="my-4">
           
-                            <x-cliente.itemCart/> 
+                            <x-cliente.itemCart 
+                              imagenURL="https://carrefourar.vtexassets.com/arquivos/ids/273585/7790717152002_01.jpg?v=638113013430030000"
+                              tipoProducto="Vino"
+                              nombreProducto="Vino Centenario"
+                              cantidad=2
+                              precioUnitario="40.00"
+                              precioTotal="80.00"
+                            />
+
+                            <x-cliente.itemCart 
+                              imagenURL="https://mefisto.com.ar/pub/media/catalog/product/cache/52333d95353fd30dc93141d4ad672a12/c/i/ci-crn-bola-0030_1_.png"
+                              tipoProducto="Cerveza"
+                              nombreProducto="Cerveza Corona"
+                              cantidad=1
+                              precioUnitario="30.00"
+                              precioTotal="30.00"
+                            />
           
                             
           
@@ -45,8 +61,7 @@
                             <hr class="my-4">
           
                             <div class="d-flex justify-content-between mb-4">
-                              <h5 class="text-uppercase">items 2</h5>
-                              <h5>$132.00</h5>
+                              <h5>2 Items agregados al carrito</h5>
                             </div>
           
                             <h4 class="mb-3">Datos retiro en sucursal</h5>
@@ -67,8 +82,8 @@
                             <hr class="my-4">
           
                             <div class="d-flex justify-content-between mb-5">
-                              <h5 class="text-uppercase">Total price</h5>
-                              <h5>$137.00</h5>
+                              <h5 class="text-uppercase">Monto final</h5>
+                              <h5>$110.00</h5>
                             </div>
           
                             <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
