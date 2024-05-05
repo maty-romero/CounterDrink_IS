@@ -27,7 +27,16 @@
         </header>
         <!-- Section-->
         <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
+            <div class="container px-4 px-lg-5">
+
+                <div class="d-flex mb-5 align-items-center">
+                    <div class="input-group w-50">
+                        <input type="text" class="form-control" placeholder="Buscar">
+                        <button class="btn btn-warning" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                    <span class="ms-3">Resultados de la búsqueda para "producto 1"</span>
+                </div>
+
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     @for ($i = 0; $i <= 7; $i++)
                         <x-cliente.itemCard />
