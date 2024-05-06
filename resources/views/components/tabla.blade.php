@@ -4,6 +4,14 @@
         <thead>
             <tr>
                 @switch($type)
+                    @case('stock')
+                    <th>{{$titulo4}}</th>
+                    <th>{{$titulo1}}</th>
+                    <th>{{$titulo2}}</th>
+                    <th>{{$titulo3}}</th>
+                    <th>{{$titulo6}}</th>
+                    <th>Accion</th>
+                        @break
                     @case('venta')
                     <th>{{$titulo1}}</th>
                     <th>{{$titulo2}}</th>
