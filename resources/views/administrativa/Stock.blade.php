@@ -53,8 +53,6 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Ingresar Stock</h1>
-                        
-                            
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="card mb-4">
@@ -64,12 +62,36 @@
                                                 Tabla de stock
                                             </div>
                                         </div>
-                                        <x-tabla type="stock">
-                                            <x-slot name="titulo1">Nombre</x-slot>
-                                            <x-slot name="titulo2">Marca</x-slot>
-                                            <x-slot name="titulo3">Stock Actual</x-slot>
-                                            <x-slot name="titulo4">Nro Producto</x-slot>
-                                            <x-slot name="titulo6">Nuevo Stock</x-slot>
+                                        <x-tabla : columna="['Nro Producto','Nombre','Marca','Stock Actual','Stock Ingresado','Accion']" >
+                                            @php
+                                                $datos = [
+                                                            ['Nro Producto'=>'1','Nombre' => 'Whisky', 'Marca' => 'Johnnie Walker', 'Tipo' => 'Escocés', 'Stock Actual' => '10', 'Stock Ingresado' => ''],
+                                                            ['Nro Producto'=>'2','Nombre' => 'Vino Tinto', 'Marca' => 'Trapiche', 'Tipo' => 'Malbec', 'Stock Actual' => '25', 'Stock Ingresado' => '' ],
+                                                            ['Nro Producto'=>'3','Nombre' => 'Vino Blanco', 'Marca' => 'Santa Julia', 'Tipo' => 'Chardonnay', 'Stock Actual' => '18', 'Stock Ingresado' => '' ],
+                                                            ['Nro Producto'=>'4','Nombre' => 'Cerveza', 'Marca' => 'Heineken', 'Tipo' => 'Lager', 'Stock Actual' => '30', 'Stock Ingresado' => '' ],
+                                                            ['Nro Producto'=>'5','Nombre' => 'Champagne', 'Marca' => 'Moët & Chandon', 'Tipo' => 'Brut', 'Stock Actual' => '5', 'Stock Ingresado' => '' ],
+                                                            ['Nro Producto'=>'6','Nombre' => 'Vodka', 'Marca' => 'Absolut', 'Tipo' => 'Vodka', 'Stock Actual' => '15', 'Stock Ingresado' => '' ],
+                                                            ['Nro Producto'=>'7','Nombre' => 'Ron', 'Marca' => 'Havana Club', 'Tipo' => 'Añejo', 'Stock Actual' => '8', 'Stock Ingresado' => '' ],
+                                                            ['Nro Producto'=>'8','Nombre' => 'Tequila', 'Marca' => 'Patrón', 'Tipo' => 'Reposado', 'Stock Actual' => '12', 'Stock Ingresado' => '' ],
+                                                            ['Nro Producto'=>'9','Nombre' => 'Gin', 'Marca' => 'Bombay Sapphire', 'Tipo' => 'London Dry', 'Stock Actual' => '20', 'Stock Ingresado' => '' ],
+                                                            ['Nro Producto'=>'10','Nombre' => 'Vermut', 'Marca' => 'Martini', 'Tipo' => 'Rosso', 'Stock Actual' => '10', 'Stock Ingresado' => '' ],
+                                                        ];
+                                            @endphp
+
+                                            @foreach($datos as $dato)
+                                                <tr>
+                                                    <td>{{ $dato['Nro Producto'] }}</td>
+                                                    <td>{{ $dato['Nombre'] }}</td>
+                                                    <td>{{ $dato['Marca'] }}</td>
+                                                    <td>{{ $dato['Stock Actual'] }}</td>
+                                                    <td><input type="text" name="stock_ingresado[]" value="{{ $dato['Stock Ingresado'] }}"></td>
+                                                    <td>
+                                                        <div class="d-flex justify-content-center">
+                                                             <button class="btn btn-success"><i class="fas fa-check"></i></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </x-tabla>
                                     </div>
                                 </div>
@@ -128,4 +150,3 @@
 
     </body>
 </html>
-

@@ -63,12 +63,33 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <x-tabla type="proveedor">
-                                    <x-slot name="titulo5">id proveedor</x-slot>
-                                    <x-slot name="titulo1">Nombre</x-slot>
-                                    <x-slot name="titulo2">Cuit</x-slot>
-                                    <x-slot name="titulo3">Telefono</x-slot>
-                                    <x-slot name="titulo4">Email</x-slot>
+                                <x-tabla : columna="Nro Proveedor,Nombre,Cuit,Telefono,Email,Accion">
+                                    @php
+                                     $proveedores = [
+                                                    ['id' => 1, 'nombre' => 'Proveedor 1', 'cuit' => '123456789', 'telefono' => '1234567890', 'email' => 'proveedor1@example.com'],
+                                                    ['id' => 2, 'nombre' => 'Proveedor 2', 'cuit' => '987654321', 'telefono' => '0987654321', 'email' => 'proveedor2@example.com'],
+                                                    ['id' => 3, 'nombre' => 'Proveedor 3', 'cuit' => '456789123', 'telefono' => '4567891230', 'email' => 'proveedor3@example.com'],
+                                                    ['id' => 4, 'nombre' => 'Distribuidora de Vinos', 'cuit' => '30-24681012-1', 'telefono' => '+541199876543', 'email' => 'info@distribuidoravinos.com'],
+                                                    ['id' => 5, 'nombre' => 'Destilería Los Andes', 'cuit' => '30-13579246-3', 'telefono' => '+541188765432', 'email' => 'ventas@destileriandes.com'],
+                                                    ['id' => 6, 'nombre' => 'Importadora de Bebidas Exóticas', 'cuit' => '30-36925814-5', 'telefono' => '+541177777777', 'email' => 'info@importadorabebidas.com'],
+                                                ];
+                                    @endphp
+                            
+                                    @foreach($proveedores as $proveedor)
+                                        <tr>
+                                            <td>{{ $proveedor['id'] }}</td>
+                                            <td>{{ $proveedor['nombre'] }}</td>
+                                            <td>{{ $proveedor['cuit'] }}</td>
+                                            <td>{{ $proveedor['telefono'] }}</td>
+                                            <td>{{ $proveedor['email'] }}</td>
+                                            <td class="action-buttons">
+                                                <div class="d-flex justify-content-center">
+                                                    <button class="edit-btn me-2"><i class="fas fa-edit"></i></button>
+                                                    <button class="delete-btn ms-2"><i class="fas fa-trash-alt"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach 
                                 </x-tabla>
                             </div>
                         </div>
@@ -76,6 +97,7 @@
                 </main>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="{{asset('assets/demo/scripts.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

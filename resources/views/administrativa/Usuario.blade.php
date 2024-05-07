@@ -63,10 +63,27 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <x-tabla type="usuario">
-                                    <x-slot name="titulo1">Nombre</x-slot>
-                                    <x-slot name="titulo2">Rol</x-slot>
-                                    <x-slot name="titulo3">Email</x-slot>
+                                <x-tabla : columna="Nombre,Rol,Email,Accion">
+                                    @php
+                                        $usuarios = [
+                                            ['nombre' => 'John Doe', 'rol' => 'Admin', 'email' => 'johndoe@example.com'],
+                                            ['nombre' => 'Jane Smith', 'rol' => 'User', 'email' => 'janesmith@example.com'],
+                                            ['nombre' => 'Mike Johnson', 'rol' => 'User', 'email' => 'mikejohnson@example.com'],
+                                        ];
+                                    @endphp
+                                    @foreach($usuarios as $usuario)
+                                        <tr>
+                                            <td>{{ $usuario['nombre'] }}</td>
+                                            <td>{{$usuario['rol']}}</td>
+                                            <td>{{ $usuario['email'] }}</td>
+                                            <td class="action-buttons">
+                                                <div class="d-flex justify-content-center">
+                                                    <button class="edit-btn me-2"><i class="fas fa-edit"></i></button>
+                                                    <button class="delete-btn ms-2"><i class="fas fa-trash-alt"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </x-tabla>
                             </div>
                         </div>
@@ -74,6 +91,7 @@
                 </main>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="{{asset('assets/demo/scripts.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

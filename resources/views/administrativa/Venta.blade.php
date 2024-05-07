@@ -63,10 +63,30 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <x-tabla type="venta">
-                                    <x-slot name="titulo1">Nro Pago</x-slot>
-                                    <x-slot name="titulo2">Fecha venta</x-slot>
-                                    <x-slot name="titulo3">Monto final</x-slot>
+                                <x-tabla columna="['Nro Pago','Fecha venta','Monto Final','Accion']">
+                                    @php
+                                        $ventas = [
+                                                    ['id' => 1, 'fecha_venta' => '2024-05-01', 'monto_final' => 150.50],
+                                                    ['id' => 2, 'fecha_venta' => '2024-05-02', 'monto_final' => 210.75],
+                                                    ['id' => 3, 'fecha_venta' => '2024-05-03', 'monto_final' => 180.00],
+                                                    ['id' => 4, 'fecha_venta' => '2024-05-04', 'monto_final' => 300.25],
+                                                    ['id' => 5, 'fecha_venta' => '2024-05-05', 'monto_final' => 250.90],
+                                                    ];
+                                    @endphp
+                                    @foreach($ventas as $venta)
+                                    <tr>
+                                        <td>{{ $venta['id'] }}</td>
+                                        <td>{{ $venta['fecha_venta'] }}</td>
+                                        <td>{{ $venta['monto_final'] }}</td>
+                                        <td class="action-buttons">
+                                            <div class="d-flex justify-content-center">
+                                                <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                                                <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                
                                 </x-tabla>
                             </div>
                         </div>
@@ -74,6 +94,7 @@
                 </main>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="{{asset('assets/demo/scripts.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
