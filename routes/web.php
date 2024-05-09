@@ -13,7 +13,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home');  // No muy necesario -> Ver flujo de autenticacion
  
 Route::get('/', function () {
-    return view('cliente/index');
+    return view('/administrativa/productos/Stock');
 });
 Route::get('/show', [ProductoController::class, 'show'])->name('show_product');
 Route::get('/carrito', [VentaController::class, 'getCarrito'])->name('show_carrito');
@@ -22,6 +22,8 @@ Route::get('/carrito', [VentaController::class, 'getCarrito'])->name('show_carri
 
 // Rutas Administration side
 
+Route::get('/ventas', [VentaController::class, 'index'])->name('ventas_index');
+Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas_create');
 
 
 

@@ -59,11 +59,14 @@
                                     Tabla de ventas
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarNuevoModal">Agregar Nuevo</button>
+                                    <a class="btn btn-primary" href="{{ route('ventas_create') }}">Registrar nueva venta</a>
+                                    {{-- 
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarNuevoModal"></button>
+                                    --}}
                                 </div>
                             </div>
                             <div class="card-body">
-                                <x-tabla columna="['Nro Pago','Fecha venta','Monto Final','Accion']">
+                                <x-tabla :columna="['Nro Pago','Fecha venta','Monto Final','Accion']">
                                     @php
                                         $ventas = [
                                                     ['id' => 1, 'fecha_venta' => '2024-05-01', 'monto_final' => 150.50],
