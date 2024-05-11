@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('producto.agregar-producto');
+    return view('administrativa.venta.venta');
 });
 Auth::routes();
 

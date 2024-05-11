@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <x-tabla columna="['Nro Pago','Fecha venta','Monto Final','Accion']">
+                                <x-tabla columna="Nro Pago,Fecha venta,Monto Final,Accion">
                                     @php
                                         $ventas = [
                                                     ['id' => 1, 'fecha_venta' => '2024-05-01', 'monto_final' => 150.50],
