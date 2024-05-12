@@ -5,7 +5,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Administraci&oacute;n</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Sobre nosotros</a></li>
             </ul>
             <form class="d-flex">
                 <a class="btn btn-outline-dark" href="{{ route('show_product') }}">
