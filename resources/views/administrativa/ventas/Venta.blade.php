@@ -66,11 +66,8 @@
                                 </div>
                             </div>
                             <div class="card-body">
-<<<<<<<< HEAD:resources/views/administrativa/ventas/Venta.blade.php
-                                <x-tabla :columna="['Nro Pago','Fecha venta','Monto Final','Accion']">
-========
+
                                 <x-tabla columna="Nro Pago,Fecha venta,Monto Final,Accion">
->>>>>>>> Vista_Administrativa:resources/views/administrativa/venta/venta.blade.php
                                     @php
                                         $ventas = [
                                                     ['id' => 1, 'fecha_venta' => '2024-05-01', 'monto_final' => 150.50],
