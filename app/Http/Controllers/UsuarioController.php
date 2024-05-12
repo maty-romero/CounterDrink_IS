@@ -11,7 +11,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        return view('administrativa.Usuario');
     }
 
     /**
@@ -19,7 +19,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        return view('administrativa.Usuario');
+
     }
 
     /**
