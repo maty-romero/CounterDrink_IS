@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home');  // No muy necesario -> Ver flujo de autenticacion
- 
+
+/*
 Route::get('/', function () {
     return view('/administrativa/productos/Stock');
-});
+})->name('holamundo');
+*/ 
+
+Route::get('/', [VentaController::class, 'homeShop'])->name('home_shop');
 Route::get('/show', [ProductoController::class, 'show'])->name('show_product');
 Route::get('/carrito', [VentaController::class, 'getCarrito'])->name('show_carrito');
 
@@ -32,3 +36,7 @@ Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas_c
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

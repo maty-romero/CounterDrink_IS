@@ -15,6 +15,10 @@ class VentaController extends Controller
         return view('administrativa/ventas/create');
     }
 
+    public function homeShop()
+    {
+        return view('cliente/index');
+    }
     public function getCarrito()
     {
         return view('cliente/carrito');
