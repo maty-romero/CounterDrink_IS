@@ -24,9 +24,10 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Gestion</div>
-                            <a class="nav-link" href="tables.html">
+                            <a class="nav-link" href="{{ route('usuario.create') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Usuarios
+                            </a>
                             </a>
                             <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>

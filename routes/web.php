@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,17 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('administrativa.venta.venta');
+    return view('administrativa.producto.agregar-producto');
 });
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//crear grupo de rutas para el controlador de servicios
+
+Route::group(['prefix' => 'usuario'], function () {
+    Route::resource('usuario', UsuarioController::class);
+   // Route::get('usuario', [UsuarioController::class, 'create']);
+
+});

@@ -25,7 +25,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Gestion</div>
-                            <a class="nav-link" href="tables.html">
+                            <a class="nav-link"  href="{{ route('usuario.create') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Usuarios
                             </a>
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label" for="email">Descripcion:</label>
-                                        <input class="form-control form-control-user assistant-hide" placeholder="descripcion" type="text" id="descripcion-id" required="true" name="descripcion" value="" title="">
+                                        <textarea class="form-control form-control-user assistant-hide" placeholder="descripcion" id="descripcion-id" required="true" name="descripcion" title=""></textarea>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-6">

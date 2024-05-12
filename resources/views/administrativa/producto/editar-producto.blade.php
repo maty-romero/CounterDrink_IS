@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label" for="email">Descripcion:</label>
-                                        <input class="form-control form-control-user assistant-hide" placeholder="descripcion" type="text" id="descripcion-id" required="true" name="descripcion" value="" title="">
+                                        <textarea class="form-control form-control-user assistant-hide" placeholder="descripcion" id="descripcion-id" required="true" name="descripcion" title=""></textarea>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-6">
