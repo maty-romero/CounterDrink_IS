@@ -17,7 +17,6 @@
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Drink Counter</a>
             <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -52,54 +51,27 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4" style="text-align: center; margin-bottom: 50px href={{ route('producto.create') }};">Agregar producto</h1>
+                        <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Modificar usuario</h1>
                         <div class="form-container">
                             <div class="form-card">
                                 <form class="user">
                                     <div class="row mb-3">
                                         <div class="col-sm-6">
                                             <label class="col-form-label" for="name">Nombre:</label>
-                                            <input class="form-control form-control-user" type="text" placeholder="Nombre" required="true" name="name" value="" title="">    
+                                            <input class="form-control form-control-user" type="text" placeholder="Nombre" required="true" name="name" value="" title="">
                                         </div>
-                                            <div class="col-sm-6">
-                                                <label class="col-form-label" for="stock">Stock:</label>
-                                                <input class="form-control form-control-user" type="number" placeholder="stock" required="true" name="stock" value="" title="">
-                                            </div>
+                                        <div class="col-sm-6">
+                                            <label class="col-form-label" for="contrasena">contrasena:</label>
+                                            <input class="form-control form-control-user" type="contrasena" id="contrasena-id" placeholder="contrasena" required="true" name="contrasena" value="" title="">
+                                        </div>
                                     </div>
+                                
                                     <div class="mb-3">
-                                        <label class="col-form-label" for="email">Descripcion:</label>
-                                        <textarea class="form-control form-control-user assistant-hide" placeholder="descripcion" id="descripcion-id" required="true" name="descripcion" title=""></textarea>
+                                        <label class="col-form-label" for="email">Email:</label>
+                                        <input class="form-control form-control-user assistant-hide" type="email" id="email-id" required="true" name="email" value="" title="">
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-6">
-                                            <label class="col-form-label" for="precio">precio:</label>
-                                            <input class="form-control form-control-user" type="number" placeholder="Precio"  id="precio-id" placeholder="precio" required="true" name="precio" value="" title="">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="col-form-label" for="vol%">vol%:</label>
-                                            <input class="form-control form-control-user" type="number" placeholder="vol%" required="true" name="vol%" value="" title="">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-6">
-                                            <label class="col-form-label" for="Tipo">Tipo de bebida:</label>
-                                            <input class="form-control form-control-user" type="text" id="Tipo-id" placeholder="Tipo de bebida" required="true" name="precio" value="" title="">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="col-form-label" for="Capacidad">Capacidad (Lts):</label>
-                                            <input class="form-control form-control-user" type="number" placeholder="Capacidad" required="true" name="Capacidad" value="" title="">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="col-form-label" for="Marca">Marca:</label>
-                                        <input class="form-control form-control-user assistant-hide" type="text" placeholder="Marca" id="Marca-id" required="true" name="Marca" value="" title="">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="col-form-label" for="image">Imagen del producto:</label>
-                                        <input class="form-control form-control-user" type="file" id="image-id" name="image" title="">
-                                    </div>                                    
                                     <button class="btn btn-primary d-block btn-user w-100" id="crear-cuenta-btn-id"
-                                    type="submit">Agregar producto</button>
+                                    type="submit">Modificar datos</button>
                                 </form>
                             </div>
                         </div>

@@ -61,7 +61,7 @@
                                                 Tabla de stock
                                             </div>
                                         </div>
-                                        <x-tabla : columna="['Nro Producto','Nombre','Marca','Stock Actual','Stock Ingresado','Accion']" >
+                                        <x-tabla : columna="Nro Producto,Nombre,Marca,Stock Actual,Stock Ingresado,Accion" >
                                             @php
                                                 $datos = [
                                                             ['Nro Producto'=>'1','Nombre' => 'Whisky', 'Marca' => 'Johnnie Walker', 'Tipo' => 'Escocés', 'Stock Actual' => '10', 'Stock Ingresado' => ''],
@@ -117,14 +117,14 @@
                                                         <td>12</td>
                                                         <td>5</td>
                                                         <td class="action-buttons">
-                                                            <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                                            <button class="delete-btn ms-2" style="color: black; background-color: red"><i class="fas fa-trash-alt"></i></button>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>2</td>
                                                         <td>-12</td>
                                                         <td class="action-buttons">
-                                                            <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                                                <button class="delete-btn ms-2" style="color: black; background-color: red"><i class="fas fa-trash-alt"></i></button>
                                                         </td>
                                                     </tr>
                                                     <!-- Aquí se agregarán las filas de los cambios realizados -->

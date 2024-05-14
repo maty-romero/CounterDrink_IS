@@ -20,7 +20,7 @@ use App\Http\Controllers\ProveedorController;
 */
 
 Route::get('/', function () {
-    return view('administrativa.producto.agregar-producto');
+    return view('administrativa.usuario.editar-usuario');
 });
 Auth::routes();
 

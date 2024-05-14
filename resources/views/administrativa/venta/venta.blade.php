@@ -80,8 +80,8 @@
                                         <td>{{ $venta['monto_final'] }}</td>
                                         <td class="action-buttons">
                                             <div class="d-flex justify-content-center">
-                                                <button class="edit-btn"><i class="fas fa-edit"></i></button>
-                                                <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                                <button class="edit-btn me-2" style="color: black; background-color: yellow;"><i class="fas fa-edit"></i></button>
+                                                <button class="delete-btn ms-2" style="color: black; background-color: red"><i class="fas fa-trash-alt"></i></button>
                                             </div>
                                         </td>
                                     </tr>

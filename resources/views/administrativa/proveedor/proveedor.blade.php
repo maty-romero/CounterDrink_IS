@@ -59,7 +59,7 @@
                                     Tabla de Proveedores
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarNuevoModal">Agregar Nuevo</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarNuevoModal" onclick="window.location='{{ route('proveedor.create') }}';">Agregar Nuevo</button>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -84,8 +84,8 @@
                                             <td>{{ $proveedor['email'] }}</td>
                                             <td class="action-buttons">
                                                 <div class="d-flex justify-content-center">
-                                                    <button class="edit-btn me-2"><i class="fas fa-edit"></i></button>
-                                                    <button class="delete-btn ms-2"><i class="fas fa-trash-alt"></i></button>
+                                                    <button class="edit-btn me-2" style="color: black; background-color: yellow;"><i class="fas fa-edit"></i></button>
+                                                    <button class="delete-btn ms-2" style="color: black; background-color: red"><i class="fas fa-trash-alt"></i></button>
                                                 </div>
                                             </td>
                                         </tr>

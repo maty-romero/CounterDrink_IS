@@ -67,8 +67,8 @@
                                     @php
                                         $usuarios = [
                                             ['nombre' => 'John Doe', 'rol' => 'Admin', 'email' => 'johndoe@example.com'],
-                                            ['nombre' => 'Jane Smith', 'rol' => 'User', 'email' => 'janesmith@example.com'],
-                                            ['nombre' => 'Mike Johnson', 'rol' => 'User', 'email' => 'mikejohnson@example.com'],
+                                            ['nombre' => 'Jane Smith', 'rol' => 'Abastecedor', 'email' => 'janesmith@example.com'],
+                                            ['nombre' => 'Mike Johnson', 'rol' => 'Cajero', 'email' => 'mikejohnson@example.com'],
                                         ];
                                     @endphp
                                     @foreach($usuarios as $usuario)
@@ -78,8 +78,8 @@
                                             <td>{{ $usuario['email'] }}</td>
                                             <td class="action-buttons">
                                                 <div class="d-flex justify-content-center">
-                                                    <button class="edit-btn me-2"><i class="fas fa-edit"></i></button>
-                                                    <button class="delete-btn ms-2"><i class="fas fa-trash-alt"></i></button>
+                                                    <button class="edit-btn me-2" style="color: black; background-color: yellow;"><i class="fas fa-edit"></i></button>
+                                                    <button class="delete-btn ms-2" style="color: black; background-color: red"><i class="fas fa-trash-alt"></i></button>
                                                 </div>
                                             </td>
                                         </tr>

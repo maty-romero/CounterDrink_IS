@@ -19,7 +19,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-       
+        return view('administrativa.producto.agregar-producto');
+
     }
 
     /**
@@ -42,9 +43,9 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
-        //
+        return view('administrativa.producto.editar-producto');
     }
 
     /**

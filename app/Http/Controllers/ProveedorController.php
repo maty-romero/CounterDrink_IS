@@ -19,7 +19,8 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-       
+        return view('administrativa.proveedor.registrar-proveedor');
+
     }
 
     /**
