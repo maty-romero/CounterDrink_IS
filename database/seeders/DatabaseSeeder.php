@@ -102,6 +102,5 @@ class DatabaseSeeder extends Seeder
         foreach ($productos as $prod) {
             Producto::create($prod);
         }
-
     }
 }
