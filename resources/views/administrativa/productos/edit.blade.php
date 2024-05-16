@@ -20,39 +20,13 @@
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Gestion</div>
-                            <a class="nav-link"  href="{{ route('usuario.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Usuarios
-                            </a>
-                            <a class="nav-link" href="{{ route('proveedor.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Proveedores
-                            </a>
-                            <a class="nav-link" href="{{ route('producto.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Productos
-                            </a>
-                            <a class="nav-link" href="{{ route('venta.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Ventas
-                            </a>
-                            <a class="nav-link" href="{{ route('stock.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Stock
-                            </a>
-                        </div>
-                    </div>
-                </nav>
-            </div> 
+            
+            <x-nav-bar />
+
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Agregar producto</h1>
+                        <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Modificar producto</h1>
                         <div class="form-container">
                             <div class="form-card">
                                 <form class="user">
@@ -99,7 +73,7 @@
                                         <input class="form-control form-control-user" type="file" id="image-id" name="image" title="">
                                     </div>                                    
                                     <button class="btn btn-primary d-block btn-user w-100" id="crear-cuenta-btn-id"
-                                    type="submit">Agregar producto</button>
+                                    type="submit">Modificar datos</button>
                                 </form>
                             </div>
                         </div>

@@ -11,7 +11,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        return view('administrativa.stock');
+        return view('administrativa.productos.stock');
     }
 
     /**
