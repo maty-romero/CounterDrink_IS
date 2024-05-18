@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             array(
                 'nombre_producto' => 'Cerveza Rubia Heineken',
                 'descripcion' => 'Una cerveza rubia refrescante y suave, con un equilibrio perfecto entre el amargor del lúpulo y las notas sutiles de malta. Ideal para disfrutar en cualquier ocasión.',
-                'imagenURL' => 'https://www.guiadelacerveza.com/wp-content/uploads/2023/04/Cerveza-Heineken-European-Lager.png',
+                'imagenURL' => 'https://laprovedeampip.com.ar/wp-content/uploads/2024/01/Cerveza-Heineken-1l.png',
                 'stock' => 50,
                 'precio_producto' => 2100.00,
                 'contenido_alcohol' => 5.0,

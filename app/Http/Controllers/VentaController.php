@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class VentaController extends Controller
@@ -17,7 +18,8 @@ class VentaController extends Controller
 
     public function homeShop()
     {
-        return view('cliente/index');
+        $productos = Producto::where("stock", ">=", 1)->get();        
+        return view('cliente/index', compact('productos'));
     }
     public function getCarrito()
     {

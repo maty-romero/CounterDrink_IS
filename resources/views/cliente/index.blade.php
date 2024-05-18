@@ -38,9 +38,14 @@
                 </div>
 
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    @for ($i = 0; $i <= 7; $i++)
-                        <x-cliente.itemCard />
-                    @endfor
+                    @foreach ($productos as $producto)
+                        <x-cliente.itemCard 
+                            :id="$producto->id"
+                            :imagenURL="$producto->imagenURL"
+                            :nombreProducto="$producto->nombre_producto"
+                            :precioUnitario="$producto->precio_producto"
+                        />
+                    @endforeach
                 </div>
             </div>
         </section>

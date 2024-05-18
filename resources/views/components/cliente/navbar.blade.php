@@ -8,7 +8,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Sobre nosotros</a></li>
             </ul>
             <form class="d-flex">
-                <a class="btn btn-outline-dark" href="{{ route('show_product') }}">
+                <a class="btn btn-outline-dark" href="{{ route('show_carrito') }}">
                     <i class="bi-cart-fill me-1"></i>
                     Carrito
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
