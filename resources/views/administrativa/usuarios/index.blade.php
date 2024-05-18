@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <x-tabla :columna="Nombre,Rol,Email,Accion">
+                <x-tabla columna="Nombre,Rol,Email,Accion">
                     @php
                         $usuarios = [
                             ['nombre' => 'John Doe', 'rol' => 'Admin', 'email' => 'johndoe@example.com'],

@@ -11,7 +11,8 @@
                 </div>
             </div>
             <div class="card-body text-center">
-                <x-tabla :columna="Nro Producto,Nombre,Marca,Stock,Precio,capacidad en (Lts),Accion">
+                    <x-tabla columna="Nro Producto,Nombre,Marca,Stock,Precio,capacidad en (Lts),Accion">
+
                     @php
                         $productos = [
                             ['id' => 1, 'nombre' => 'Producto 1', 'marca' => 'Marca 1', 'stock' => 10, 'precio' => 20.50, 'capacidad' => '500ml'],

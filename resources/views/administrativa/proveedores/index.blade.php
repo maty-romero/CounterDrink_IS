@@ -10,11 +10,12 @@
                     Tabla de Proveedores
                 </div>
                 <div>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarNuevoModal">Agregar Nuevo</button>
+                    <a class="btn btn-primary" href="{{ route('proveedores_create') }}">Agregar Nuevo</a>
+                </div>
                 </div>
             </div>
             <div class="card-body">
-                <x-tabla :columna="Nro Proveedor,Nombre,Cuit,Telefono,Email,Accion">
+                <x-tabla columna="Nro Proveedor,Nombre,Cuit,Telefono,Email,Accion">
                     @php
                     $proveedores = [
                         ['id' => 1, 'nombre' => 'Proveedor 1', 'cuit' => '123456789', 'telefono' => '1234567890', 'email' => 'proveedor1@example.com'],

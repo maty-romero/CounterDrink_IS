@@ -8,7 +8,7 @@ class VentaController extends Controller
 {
     public function index()
     {
-        return view('administrativa/ventas/Venta');
+        return view('administrativa/ventas/index');
     }
     public function create()
     {

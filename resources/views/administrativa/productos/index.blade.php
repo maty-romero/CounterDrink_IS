@@ -10,11 +10,11 @@
                     Tabla de productos
                 </div>
                 <div>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarNuevoModal">Agregar Nuevo</button>
+                    <a class="btn btn-primary" href="{{ route('productos_create') }}">Agregar Nuevo</a>
                 </div>
             </div>
             <div class="card-body">
-                <x-tabla :columna="Nro Producto,Nombre,Marca,Stock,Precio,capacidad en (Lts),Descripcion,Accion">
+                <x-tabla columna="Nro Producto,Nombre,Marca,Stock,Precio,capacidad en (Lts),Descripcion,Accion">
                     @php
                         $productos = [
                             ['id' => 1, 'nombre' => 'Producto 1', 'marca' => 'Marca 1', 'stock' => 10, 'precio' => 20.50, 'capacidad' => '500ml', 'descripcion' => 'Descripción 1'],
