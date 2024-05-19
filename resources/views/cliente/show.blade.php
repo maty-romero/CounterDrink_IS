@@ -20,21 +20,24 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
+                    <prev>
+                        {{$producto}}
+                    </prev>
                     {{-- Tamaño imagen: 600x700--}}
                     <div class="col-md-6">
-                        <img class="card-img-top mb-5 mb-md-0" width="700" height="600" src="https://carrefourar.vtexassets.com/arquivos/ids/273585/7790717152002_01.jpg?v=638113013430030000" alt="..." />
+                        <img class="card-img-top mb-5 mb-md-0" width="700" height="600" src="{{$producto->imagenURL}}" alt="..." />
                     </div>
                     <div class="col-md-6">
-                        <div class="small mb-1">C&oacute;digo de producto: #CRZ-001</div>
-                        <h1 class="display-5 fw-bolder">Vino tinto Novecento</h1>
+                        <div class="small mb-1">C&oacute;digo de producto: #CRZ-0{{$producto->id}}</div>
+                        <h1 class="display-5 fw-bolder">{{$producto->nombre_producto}}</h1>
                         <div class="fs-5 mb-4">
-                            <span>$40.00</span>
+                            <span>${{$producto->precio_producto}}</span>
                         </div>
-                        <p class="lead">Sumérgete en el exquisito sabor de nuestro vino tinto, con notas de frutas maduras y un toque de especias. Perfecto para acompañar tus momentos más especiales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum felis ac aliquet consectetur. Fusce nec nisi sit amet erat consequat ultricies. Quisque vestibulum vel turpis sed feugiat.</p>
-                        <p class="lead">Tipo de bebida: Vino tinto</p>
-                        <p class="lead">Marca: Novecento</p>
-                        <p class="lead">Contenido de la unidad: 750ml</p>
-                        <p class="lead">Contenido de alcohol: 7%</p>
+                        <p class="lead">{{$producto->descripcion}}</p>
+                        <p class="lead">Tipo de bebida: {{$producto->tipo_bebida}}</p>
+                        <p class="lead">Marca: {{$producto->marca}}</p>
+                        <p class="lead">Contenido de la unidad: {{round($producto->capacidad_ml)}} ml</p>
+                        <p class="lead">Contenido de alcohol: {{round($producto->contenido_alcohol)}}%</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
@@ -51,9 +54,14 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Productos relacionados</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    @for ($i = 0; $i <= 3; $i++)
-                        <x-cliente.itemCard />
-                    @endfor    
+                    @foreach ($productos_relacionados as $producto)
+                        <x-cliente.itemCard 
+                            :id="$producto->id"
+                            :imagenURL="$producto->imagenURL"
+                            :nombreProducto="$producto->nombre_producto"
+                            :precioUnitario="$producto->precio_producto"
+                        />
+                    @endforeach    
                 </div>
             </div>
         </section>

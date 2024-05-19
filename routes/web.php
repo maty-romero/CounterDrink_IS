@@ -24,7 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home');  // No muy necesario -> Ver flujo de autenticacion
 
 Route::get('/', [VentaController::class, 'homeShop'])->name('home_shop');
-Route::get('/show', [ProductoController::class, 'show'])->name('show_product');
+Route::get('/show/{id}', [ProductoController::class, 'show'])->name('show_product');
 Route::get('/carrito', [VentaController::class, 'getCarrito'])->name('show_carrito');
 
 // Rutas Administration side

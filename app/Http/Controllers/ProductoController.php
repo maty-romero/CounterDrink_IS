@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -21,9 +21,14 @@ class ProductoController extends Controller
        
     }
 
-    public function show()
+    public function show(string $id)
     {
-        return view('cliente.show');
+        $producto = Producto::findOrFail($id); 
+        $productos_relacionados = Producto::where('tipo_bebida', '=', $producto->tipo_bebida)
+            ->where('id', '!=', $id) // Excluir producto actual
+            ->limit(4)
+            ->get(); 
+        return view('cliente.show', compact('producto', 'productos_relacionados'));
     }
     
     public function edit(string $id)
