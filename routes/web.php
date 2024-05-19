@@ -29,6 +29,8 @@ Route::get('/carrito', [VentaController::class, 'getCarrito'])->name('show_carri
 
 // Rutas Administration side
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios_index');
+Route::get('/usuarios/edit/{id}', [ProveedorController::class, 'edit'])->name('usuarios_edit');
+Route::get('/usuarios/create', [ProveedorController::class, 'create'])->name('usuarios_create');
 
 Route::get('/ventas', [VentaController::class, 'index'])->name('ventas_index');
 Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas_create');

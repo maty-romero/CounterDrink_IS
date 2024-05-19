@@ -10,7 +10,7 @@
                     Tabla de usuarios
                 </div>
                 <div>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarNuevoModal">Agregar Nuevo</button>
+                    <a class="btn btn-primary" href="{{ route('usuarios_create') }}">Agregar Nuevo</a>
                 </div>
             </div>
             <div class="card-body">
@@ -29,7 +29,7 @@
                             <td>{{ $usuario['email'] }}</td>
                             <td class="action-buttons">
                                 <div class="d-flex justify-content-center">
-                                    <button class="edit-btn me-2"><i class="fas fa-edit"></i></button>
+                                    <a class="btn btn-primary edit-btn me-2" href="{{ route('usuarios_edit', ['id' => $usuario['id']]) }}"><i class="fas fa-edit"></i></a>
                                     <button class="delete-btn ms-2"><i class="fas fa-trash-alt"></i></button>
                                 </div>
                             </td>
