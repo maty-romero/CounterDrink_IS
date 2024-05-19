@@ -15,7 +15,7 @@ class Venta extends Model
         "nro_pago",
     ];
     protected $table = "ventas"; 
-
+    private PasarelaFactory $pasarelaFactory; 
     // M-M producto venta
     public function producto(): BelongsToMany 
     {
@@ -23,4 +23,12 @@ class Venta extends Model
             ->withPivot('unidades_vendidas_prod');
     }
     
+    private function getPasarelaFactory() : PasarelaFactory // implementacion con singleton ¡?
+    {
+        if(!static::$pasarelaFactory)
+        {
+            $this->pasarelaFactory = new PasarelaFactory(); 
+        }
+        return $this->pasarelaFactory; 
+    } 
 }
