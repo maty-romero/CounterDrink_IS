@@ -24,73 +24,98 @@
                   <div class="card card-registration card-registration-2" style="border-radius: 15px;">
                     <div class="card-body p-0">
                       <div class="row g-0">
-                        <div class="col-lg-8">
+                        @if (empty($carrito))
+                        
                           <div class="p-5">
                             <div class="d-flex justify-content-between align-items-center mb-5">
                               <h1 class="fw-bold mb-0 text-black">Carrito de compras</h1>
-                              <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
-                              data-mdb-ripple-color="dark">Volver a la tienda</button>
+                              <a class="btn btn-dark btn-block btn-lg" href="{{route('home_shop')}}">Volver a la tienda</a>
                             </div>
-                            <hr class="my-4">
-          
-                            <x-cliente.itemCart 
-                              imagenURL="https://carrefourar.vtexassets.com/arquivos/ids/273585/7790717152002_01.jpg?v=638113013430030000"
-                              tipoProducto="Vino"
-                              nombreProducto="Vino Centenario"
-                              cantidad=2
-                              precioUnitario="40.00"
-                              precioTotal="80.00"
-                            />
-
-                            <x-cliente.itemCart 
-                              imagenURL="https://mefisto.com.ar/pub/media/catalog/product/cache/52333d95353fd30dc93141d4ad672a12/c/i/ci-crn-bola-0030_1_.png"
-                              tipoProducto="Cerveza"
-                              nombreProducto="Cerveza Corona"
-                              cantidad=1
-                              precioUnitario="30.00"
-                              precioTotal="30.00"
-                            />
-          
+                            <div class="container mx-auto flex flex-wrap mb-1 overflow-hidden">
+                              <h4 class='w-full bg-warning text-black font-bold text-2xl text-center p-5'>
+                                  El carrito de compras est&aacute; vac&iacute;o
+                              </h4>
+                            </div>
+                          </div>
+                        
+                          
                             
-          
-                          </div>
-                        </div>
-                        <div class="col-lg-4 bg-grey">
-                          <div class="p-5">
-                            <h3 class="fw-bold mb-5 mt-2 pt-1">Resumen de la compra</h3>
-                            <hr class="my-4">
-          
-                            <div class="d-flex justify-content-between mb-4">
-                              <h5>2 Items agregados al carrito</h5>
-                            </div>
-          
-                            <h4 class="mb-3">Datos retiro en sucursal</h5>
-          
-                            <div class="mb-5">
-                              <div data-mdb-input-init class="form-outline">
-                                <label class="form-label" for="form3Examplea2">Nombre del cliente</label>
-                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-
-                                <label class="form-label" for="form3Examplea2">DNI</label>
-                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-
-                                <label class="form-label" for="form3Examplea2">Tel&eacute;fono</label>
-                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                        @else
+                          <div class="col-lg-8">
+                            <div class="p-5">
+                              <div class="d-flex justify-content-between align-items-center mb-5">
+                                <h1 class="fw-bold mb-0 text-black">Carrito de compras</h1>
+                                <a class="btn btn-dark btn-block btn-lg" href="{{route('home_shop')}}">Volver a la tienda</a>
                               </div>
+
+                              <prev>
+                                Carrito: {{$carrito}}
+                              </prev>
+                              <prev>
+                                Subtotal: {{$subtotal}}
+                              </prev>
+
+                              <hr class="my-4">
+            
+                              <x-cliente.itemCart 
+                                imagenURL="https://carrefourar.vtexassets.com/arquivos/ids/273585/7790717152002_01.jpg?v=638113013430030000"
+                                tipoProducto="Vino"
+                                nombreProducto="Vino Centenario"
+                                cantidad=2
+                                precioUnitario="40.00"
+                                precioTotal="80.00"
+                              />
+
+                              <x-cliente.itemCart 
+                                imagenURL="https://mefisto.com.ar/pub/media/catalog/product/cache/52333d95353fd30dc93141d4ad672a12/c/i/ci-crn-bola-0030_1_.png"
+                                tipoProducto="Cerveza"
+                                nombreProducto="Cerveza Corona"
+                                cantidad=1
+                                precioUnitario="30.00"
+                                precioTotal="30.00"
+                              />
+            
+                              
+            
                             </div>
-          
-                            <hr class="my-4">
-          
-                            <div class="d-flex justify-content-between mb-5">
-                              <h5 class="text-uppercase">Monto final</h5>
-                              <h5>$110.00</h5>
-                            </div>
-          
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
-                              data-mdb-ripple-color="dark">Pagar pedido</button>
-          
                           </div>
-                        </div>
+                          <div class="col-lg-4 bg-grey">
+                            <div class="p-5">
+                              <h3 class="fw-bold mb-5 mt-2 pt-1">Resumen de la compra</h3>
+                              <hr class="my-4">
+            
+                              <div class="d-flex justify-content-between mb-4">
+                                <h5>2 Items agregados al carrito</h5>
+                              </div>
+            
+                              <h4 class="mb-3">Datos retiro en sucursal</h5>
+            
+                              <div class="mb-5">
+                                <div data-mdb-input-init class="form-outline">
+                                  <label class="form-label" for="form3Examplea2">Nombre del cliente</label>
+                                  <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+
+                                  <label class="form-label" for="form3Examplea2">DNI</label>
+                                  <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+
+                                  <label class="form-label" for="form3Examplea2">Tel&eacute;fono</label>
+                                  <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                                </div>
+                              </div>
+            
+                              <hr class="my-4">
+            
+                              <div class="d-flex justify-content-between mb-5">
+                                <h5 class="text-uppercase">Monto final</h5>
+                                <h5>$110.00</h5>
+                              </div>
+            
+                              <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
+                                data-mdb-ripple-color="dark">Pagar pedido</button>
+            
+                            </div>
+                          </div>
+                        @endif
                       </div>
                     </div>
                   </div>

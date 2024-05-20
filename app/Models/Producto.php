@@ -37,5 +37,18 @@ class Producto extends Model
     {
         return $this->belongsTo(Proveedor::class);
     }
+
+
+    public function hayStockProducto($unidadesProd)
+    {
+        $stockDisp = Producto::findOrFail($this->id)->stock;
+        return $stockDisp >= $unidadesProd;
+    }
+    
+    // se usa un Getter por la posibilidad de agregar descuentos en un futuro
+    public function getPrecioDeVenta() : float 
+    {
+        return $this->precio_producto; 
+    }
     
 }

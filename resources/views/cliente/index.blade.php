@@ -27,7 +27,20 @@
         </header>
         <!-- Section-->
         <section class="py-5">
+            {{-- 
+            @if(session()->has('carrito'))
+                <pre>{{ json_encode(session('carrito'), JSON_PRETTY_PRINT) }}</pre>
+            @else
+                <p>No hay productos en el carrito.</p>
+            @endif
+            --}}
+
             <div class="container px-4 px-lg-5">
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
                 <div class="d-flex mb-5 align-items-center">
                     <div class="input-group w-50">

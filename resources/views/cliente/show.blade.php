@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Item - Start Bootstrap Template</title>
+        <title>Producto</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -20,9 +20,6 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <prev>
-                        {{$producto}}
-                    </prev>
                     {{-- Tamaño imagen: 600x700--}}
                     <div class="col-md-6">
                         <img class="card-img-top mb-5 mb-md-0" width="700" height="600" src="{{$producto->imagenURL}}" alt="..." />
@@ -39,11 +36,25 @@
                         <p class="lead">Contenido de la unidad: {{round($producto->capacidad_ml)}} ml</p>
                         <p class="lead">Contenido de alcohol: {{round($producto->contenido_alcohol)}}%</p>
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Añadir al carrito
-                            </button>
+                            
+                            @if (!$enCarrito)
+                                <form method='POST' action='{{ route('carrito_agregar', ['id' => $producto->id]) }}' class="d-flex align-items-center">
+                                    @csrf
+                                    <input class="form-control text-center me-3" name="unidadesProducto" id="unidadesProducto" min='1' max='{{ $producto->stock }}' type="number" value="1" style="max-width: 5rem" />
+                                    <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Añadir al carrito
+                                    </button> 
+                                </form>
+                            @else
+                                {{-- Ya esta en el carrito --}} 
+                                <input disabled class="form-control text-center me-3" name="unidadesProducto" id="unidadesProducto" min='1' max='{{$producto->stock}}' type="number" value="1" style="max-width: 5rem" />
+                                <button class="btn btn-outline-dark flex-shrink-0" type="submit" disabled>
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Añadir al carrito
+                                </button> &nbsp;&nbsp;<span class="text-danger font-weight-bold mt-1">Este producto ya est&aacute; en el carrito</span>  
+                            @endif
+                            
                         </div>
                     </div>
                 </div>

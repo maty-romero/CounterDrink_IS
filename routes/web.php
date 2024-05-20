@@ -25,7 +25,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
 
 Route::get('/', [VentaController::class, 'homeShop'])->name('home_shop');
 Route::get('/show/{id}', [ProductoController::class, 'show'])->name('show_product');
-Route::get('/carrito', [VentaController::class, 'getCarrito'])->name('show_carrito');
+// Rutas carrito Client side
+Route::get('/carrito', [VentaController::class, 'showCart'])->name('show_carrito');
+Route::post('/carrito/{id}', [VentaController::class, 'updateCart'])->name('carrito_agregar')->middleware('web');
+Route::patch('/carrito/{id}', [VentaController::class, 'editCart'])->name('carrito_editar');
+Route::delete('/carrito/{id}', [VentaController::class, 'removeFromCart'])->name('carrito_eliminar')->middleware('web');
+
 
 // Rutas Administration side
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios_index');
