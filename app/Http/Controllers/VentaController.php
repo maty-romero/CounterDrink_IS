@@ -35,15 +35,16 @@ class VentaController extends Controller
         return to_route('home_shop');
     }
 
-    public function editCart(FormRequest $r, $tipoItem, $id)
+    public function editCart(Request $request, string $id)
     {
-        Venta::editarCantidadCarrito($id, $r->incremento, $tipoItem);
-        return to_route('carrito');
+        $operacion = $request->has('incremento') ? '+' : ($request->has('decremento') ? '-' : null);   
+        $respuesta = Venta::editarCantidadCarrito($id, $operacion);
+        return to_route('show_carrito');
     }
 
-    public function removeFromCart($id, $tipoItem)
+    public function removeFromCart(string $id)
     {
-        Venta::removerDelCarrito($id, $tipoItem);
-        return to_route('carrito');
+        Venta::removerDelCarrito($id);
+        return to_route('show_carrito');
     }
 }

@@ -71,7 +71,7 @@ class Venta extends Model
     {
         $carrito = Venta::getCarrito();
         foreach ($carrito as $item) {
-            if ($item->id !== $id) {
+            if ($item->elemento->id != $id) {
                 continue;
             }
     
@@ -107,7 +107,7 @@ class Venta extends Model
 
         foreach ($carrito as $item) {
 
-            if($item->id == $id) { // excluyo item
+            if($item->elemento->id == $id) { // excluyo item
                 continue; 
             }
             $carrito2[] = $item;
