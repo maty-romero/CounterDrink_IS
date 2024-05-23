@@ -5,6 +5,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VentaController;
+use App\Http\Controllers\ReporteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,12 +32,18 @@ Route::post('/carrito/{id}', [VentaController::class, 'updateCart'])->name('carr
 Route::patch('/carrito/{id}', [VentaController::class, 'editCart'])->name('carrito_editar');
 Route::delete('/carrito/{id}', [VentaController::class, 'removeFromCart'])->name('carrito_eliminar')->middleware('web');
 
+Route::post('/ventas/store/online', [VentaController::class, 'storeVentaOnline'])->name('venta_online_finalizar');
+Route::get('/reportes/comprobanteVenta/{nroComprobante}',  [ReporteController::class, "comprobanteVenta"])->name('cliente_comprobante_venta');
+
 
 // Rutas Administration side
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios_index');
 
 Route::get('/ventas', [VentaController::class, 'index'])->name('ventas_index');
 Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas_create');
+Route::post('/ventas/store/presencial', [VentaController::class, 'storeVentaPresencial'])->name('venta_presencial_finalizar');
+
+
 
 Route::get('/proveedores', [ProveedorController::class, 'index'])->name('proveedores_index');
 Route::get('/proveedores/edit/{id}', [ProveedorController::class, 'edit'])->name('proveedores_edit');

@@ -59,6 +59,20 @@
                             @endif
                             --}}  
 
+                            @if(session()->has('msj'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('msj') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+                            
+                            @if(session()->has('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
                               <hr class="my-4">
             
                               @foreach ($carrito as $item)
@@ -83,31 +97,37 @@
                               <div class="d-flex justify-content-between mb-4">
                                 <h5>{{count($carrito)}} Items agregados al carrito</h5>
                               </div>
-            
-                              <h4 class="mb-3">Datos retiro en sucursal</h5>
-            
-                              <div class="mb-5">
-                                <div data-mdb-input-init class="form-outline">
-                                  <label class="form-label" for="form3Examplea2">Nombre del cliente</label>
-                                  <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-
-                                  <label class="form-label" for="form3Examplea2">DNI</label>
-                                  <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-
-                                  <label class="form-label" for="form3Examplea2">Tel&eacute;fono</label>
-                                  <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                                </div>
-                              </div>
-            
-                              <hr class="my-4">
-            
                               <div class="d-flex justify-content-between mb-5">
-                                <h5 class="text-uppercase">Monto final</h5>
+                                <h5 class="text-uppercase">Monto final:</h5>
                                 <h5>${{ $subtotal }}</h5>
                               </div>
+
+                              <h5 class="mb-3">Datos retiro en sucursal</h5>
             
-                              <a class="btn btn-dark btn-block btn-lg">Pagar pedido</a>
-                            </div>
+                              <form method='POST' action='{{ route('venta_online_finalizar') }}'>
+                                @csrf
+                                <div class="mb-5">
+                                  <div data-mdb-input-init class="form-outline">
+                                    
+                                      <label class="form-label" for="form3Examplea2">Nombre del cliente</label>
+                                      <input type="text" id="idNombreCliente" name="nombre" class="form-control form-control-lg" />
+
+                                      <label class="form-label" for="form3Examplea2">DNI</label>
+                                      <input type="number" id="idDniCliente" name="dni" class="form-control form-control-lg" />
+
+                                      <label class="form-label" for="form3Examplea2">Tel&eacute;fono</label>
+                                      <input type="tel" id="idTelCliente" name="telefono" class="form-control form-control-lg" />
+                                    
+                                    
+                                  </div>   
+                                </div>
+            
+                                <hr class="my-4">
+            
+                                <button type="submit" class="btn btn-dark btn-block btn-lg">Pagar pedido</button>
+
+                            </form>
+                            
                           </div>
                         @endif
                       </div>

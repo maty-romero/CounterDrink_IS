@@ -50,5 +50,10 @@ class Producto extends Model
     {
         return $this->precio_producto; 
     }
+
+    public function reducirStockProducto($unidadesProd)
+    {    
+        Producto::findOrFail($this->id)->decrement('stock', $unidadesProd); 
+    }
     
 }

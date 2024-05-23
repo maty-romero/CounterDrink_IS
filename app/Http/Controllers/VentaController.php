@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use App\Models\Venta; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class VentaController extends Controller
 {
@@ -46,5 +48,56 @@ class VentaController extends Controller
     {
         Venta::removerDelCarrito($id);
         return to_route('show_carrito');
+    }
+
+    public function storeVentaOnline(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|string|max:15',
+                'dni' => 'nullable|digits:8',
+                'telefono' => 'nullable|digits:11',
+            ], [
+                'nombre.required' => 'El campo Nombre es obligatorio.',
+                'nombre.string' => 'El campo Nombre debe ser texto.',
+                'nombre.max' => 'El campo Nombre no puede tener más de 15 caracteres.',
+                
+                'dni.digits' => 'El campo DNI debe tener exactamente 8 dígitos.',
+                'telefono.digits' => 'El campo Teléfono debe tener exactamente 11 dígitos.',
+            ]);
+            $validator->validate();
+
+            $metodoPago = 'mercadopago'; // deberia de provenir de la Request  
+
+            if (!Venta::hayStockCarrito()) {
+                $msj = 'Error al realizar la compra. Algunos de los productos de tu carrito no tienen stock suficiente.';
+                session()->flash('msj', $msj);
+                return view('cliente.carrito', [
+                    'msj' => $msj, 
+                    'subtotal' => Venta::calcularSubtotal(), 
+                    'carrito' => Venta::getCarrito(), 
+                ]);
+            }
+
+            if (!Venta::realizarPago($metodoPago, Venta::calcularSubtotal())) {
+                $msj = 'Error al procesar el pago. Intente de nuevo.';
+                session()->flash('msj', $msj);
+                return view('cliente.carrito', [
+                    'msj' => $msj, 
+                    'subtotal' => Venta::calcularSubtotal(), 
+                    'carrito' => Venta::getCarrito(), 
+                ]);
+            }
+
+            $idVenta = Venta::finalizarVenta();
+            session()->flash('success', 'Su compra se ha realizada con éxito.');
+            session()->flash('nroComprobante', $idVenta); // nro comprobante para generacion pdf  
+            return to_route('home_shop');
+
+        }catch (ValidationException $e) {
+            $msj = 'Error al realizar la compra. La información de envío está incompleta.';
+            session()->flash('msj', $msj); 
+            return redirect()->back()->withInput()->withErrors($e->validator->errors());
+        }
     }
 }

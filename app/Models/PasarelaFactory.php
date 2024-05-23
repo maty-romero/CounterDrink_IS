@@ -14,6 +14,7 @@ class PasarelaFactory extends Model
     public static function crearPasarela(string $pasarela) : IPasarela 
     {
         // existeOpcionPago()
+        $pasarela = strtolower($pasarela);
         switch ($pasarela) {
             case 'mercadopago':
                 return new MercadoPagoPasarela();

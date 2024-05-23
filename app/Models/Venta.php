@@ -17,7 +17,7 @@ class Venta extends Model
         "nro_pago",
     ];
     protected $table = "ventas"; 
-    private PasarelaFactory $pasarelaFactory; 
+    private static ?PasarelaFactory $pasarelaFactory = null;
     // M-M producto venta
     public function producto(): BelongsToMany 
     {
@@ -25,14 +25,20 @@ class Venta extends Model
             ->withPivot('unidades_vendidas_prod');
     }
     
-    private function getPasarelaFactory() : PasarelaFactory // implementacion con singleton ¡?
+    private static function getPasarelaFactory(): PasarelaFactory
     {
-        if(!static::$pasarelaFactory)
-        {
-            $this->pasarelaFactory = new PasarelaFactory(); 
+        if (is_null(self::$pasarelaFactory)) {
+            self::$pasarelaFactory = new PasarelaFactory();
         }
-        return $this->pasarelaFactory; 
-    } 
+        return self::$pasarelaFactory;
+    }
+
+    public static function realizarPago($metodoPago, $monto)
+    {   //Simula la aceptación o no del pago 
+        $pasarela = Venta::getPasarelaFactory()->crearPasarela($metodoPago);
+        $resu = $pasarela->pagar($monto); // random boolean 
+        return $resu;
+    }
 
     public static function getCarrito()
     {
@@ -138,4 +144,38 @@ class Venta extends Model
         }
         return $subtotal;
     }
+
+    public static function finalizarVenta()
+    {
+        $carrito = Venta::getCarrito();
+
+        //Guardar venta
+        $venta = new Venta;
+        $venta->fecha_venta = now('GMT-3');
+        $venta->monto_final_venta = Venta::calcularSubtotal();
+        $venta->nro_pago = rand(1, 100000); //Al ser simulado se genera un random
+        $venta->save();
+
+        //Guardar productos vendidos
+        foreach ($carrito as $item) {
+            $producto = new ProductosVendidos();
+            $producto->id_venta = $venta->id;
+            $producto->id_producto = $item->elemento->id;
+            $producto->unidades_vendidas_prod = $item->unidades;
+            $producto->save();
+            //Actualizar stock del producto
+            $item->elemento->reducirStockProducto($item->unidades);
+        }
+        //Limpia el carrito
+        $request = new Request();
+        $request->setLaravelSession(session());
+        $request->session()->put('carrito', array());
+
+        return $venta->id;
+    }
+
+        
+
+    
+    
 }
