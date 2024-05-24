@@ -36,9 +36,21 @@
             --}}
 
             <div class="container px-4 px-lg-5">
+
+                @if (session('success'))
+                    <a href="{{route('cliente_comprobante_venta', ['nroComprobante' => session('nroComprobante')])}}" id="link" target="_blank"></a> 
+                        <div class="alert alert-success p-2" role="alert">
+                            {{ session('success') }}
+                            <a href="{{route('cliente_comprobante_venta', ['nroComprobante' => session('nroComprobante')])}}" id="link" target="_blank">Ver comprobante</a> 
+                        </div>
+                    <script>
+                        document.getElementById('link').click();
+                    </script>
+                @endif
+
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
+                        {{ session('status') }} 
                     </div>
                 @endif
 
