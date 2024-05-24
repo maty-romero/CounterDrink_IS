@@ -55,6 +55,7 @@ Route::get('/productos/create', [ProductoController::class, 'create'])->name('pr
 
 Route::get('/productos/stock', [StockController::class, 'index'])->name('stock_index');
 
+Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes_index');
 
 
 

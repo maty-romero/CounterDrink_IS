@@ -8,6 +8,11 @@ use PHPJasper\PHPJasper;
 
 class ReporteController extends Controller
 {
+    public function index()
+    {
+        return view('administrativa.reportes.index');
+    }
+
     public function comprobanteVenta(string $comprobante)
     {
         $ventaCheck = Venta::where("id", $comprobante)->get(); 
