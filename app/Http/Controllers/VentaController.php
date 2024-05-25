@@ -100,4 +100,24 @@ class VentaController extends Controller
             return redirect()->back()->withInput()->withErrors($e->validator->errors());
         }
     }
+
+    // verifica la existencia de ventas en un periodo de fechas
+    public function validarVentas(Request $request)
+    {
+        //dd($request);
+        $fechaDesde = $request->input('fecha_desde');
+        $fechaHasta = $request->input('fecha_hasta');
+
+        $fechaDesdeInicio = $fechaDesde . ' 00:00:00';
+        $fechaHastaFin = $fechaHasta . ' 23:59:59';
+
+        $ventasExist = Venta::whereBetween('fecha_venta', [$fechaDesdeInicio, $fechaHastaFin])->exists();
+
+        if (!$ventasExist) {
+            return response()->json(['success' => false, 'message' => 'No existen ventas en el rango de fechas especificado.']);
+        } 
+
+        return response()->json(['success' => true]);
+    }
+
 }
