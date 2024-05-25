@@ -42,6 +42,7 @@ Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios_ind
 Route::get('/ventas', [VentaController::class, 'index'])->name('ventas_index');
 Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas_create');
 Route::post('/ventas/store/presencial', [VentaController::class, 'storeVentaPresencial'])->name('venta_presencial_finalizar');
+Route::post('/existeVentas', [VentaController::class, 'validarVentas'])->name('validarVentas');
 
 
 
@@ -56,6 +57,7 @@ Route::get('/productos/create', [ProductoController::class, 'create'])->name('pr
 Route::get('/productos/stock', [StockController::class, 'index'])->name('stock_index');
 
 Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes_index');
+Route::post("/reporteRedirect", [ReporteController::class, "reporteRedirect"])->name("reporteRedirect");
 
 
 
