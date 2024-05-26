@@ -97,7 +97,7 @@ class ReporteController extends Controller
 
         if($request->input('tipo_reporte') == "ventas_realizadas")
         {
-            $input = base_path() . '\database\reportes\Ventas_Realizadas.jrxml';
+            $input = base_path() . '\database\reportes\VentasRealizadas.jrxml';
             $output = base_path() . '\database\reportes\output\VentasRealizadas';
 
             $options = [
