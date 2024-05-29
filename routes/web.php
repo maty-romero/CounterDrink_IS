@@ -44,8 +44,7 @@ Route::get('/productos/edit/{id}', [ProductoController::class, 'edit'])->name('p
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos_create');
 
 Route::get('/productos/stock', [StockController::class, 'index'])->name('stock_index');
-
-
+Route::post('/productos/stock', [StockController::class, 'update'])->name('stock_update');
 
 
 

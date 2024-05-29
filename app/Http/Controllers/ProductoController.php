@@ -3,13 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Producto; 
 
 class ProductoController extends Controller
 {
     public function index()
     {
-        return view('administrativa.productos.index');
+        $productos = Producto::all()->map(function ($producto) {
+            return [
+                'Nro Producto' => $producto->id,
+                'Nombre' => $producto->nombre_producto,
+                'Marca' => $producto->marca,
+                'Stock' => $producto->stock,
+                'Precio' => $producto->precio_producto,
+                'capacidad en (Lts)' => $producto->capacidad_ml, 
+                'Descripcion' => $producto->descripcion,
+            ];
+        });
+        return view('administrativa.productos.index', compact('productos'));
     }
+
+    
 
     public function create()
     {

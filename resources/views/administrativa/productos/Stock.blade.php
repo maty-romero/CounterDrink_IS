@@ -13,33 +13,19 @@
                         </div>
                     </div>
                     <x-tabla :columna="['Nro Producto','Nombre','Marca','Stock Actual','Stock Ingresado','Accion']">
-                        @php
-                        $datos = [
-                        ['Nro Producto'=>'1','Nombre' => 'Whisky', 'Marca' => 'Johnnie Walker', 'Tipo' => 'Escocés', 'Stock Actual' => '10', 'Stock Ingresado' => ''],
-                        ['Nro Producto'=>'2','Nombre' => 'Vino Tinto', 'Marca' => 'Trapiche', 'Tipo' => 'Malbec', 'Stock Actual' => '25', 'Stock Ingresado' => '' ],
-                        ['Nro Producto'=>'3','Nombre' => 'Vino Blanco', 'Marca' => 'Santa Julia', 'Tipo' => 'Chardonnay', 'Stock Actual' => '18', 'Stock Ingresado' => '' ],
-                        ['Nro Producto'=>'4','Nombre' => 'Cerveza', 'Marca' => 'Heineken', 'Tipo' => 'Lager', 'Stock Actual' => '30', 'Stock Ingresado' => '' ],
-                        ['Nro Producto'=>'5','Nombre' => 'Champagne', 'Marca' => 'Moët & Chandon', 'Tipo' => 'Brut', 'Stock Actual' => '5', 'Stock Ingresado' => '' ],
-                        ['Nro Producto'=>'6','Nombre' => 'Vodka', 'Marca' => 'Absolut', 'Tipo' => 'Vodka', 'Stock Actual' => '15', 'Stock Ingresado' => '' ],
-                        ['Nro Producto'=>'7','Nombre' => 'Ron', 'Marca' => 'Havana Club', 'Tipo' => 'Añejo', 'Stock Actual' => '8', 'Stock Ingresado' => '' ],
-                        ['Nro Producto'=>'8','Nombre' => 'Tequila', 'Marca' => 'Patrón', 'Tipo' => 'Reposado', 'Stock Actual' => '12', 'Stock Ingresado' => '' ],
-                        ['Nro Producto'=>'9','Nombre' => 'Gin', 'Marca' => 'Bombay Sapphire', 'Tipo' => 'London Dry', 'Stock Actual' => '20', 'Stock Ingresado' => '' ],
-                        ['Nro Producto'=>'10','Nombre' => 'Vermut', 'Marca' => 'Martini', 'Tipo' => 'Rosso', 'Stock Actual' => '10', 'Stock Ingresado' => '' ],
-                        ];
-                        @endphp
-
-                        @foreach($datos as $dato)
+                        @foreach($productos as $producto)
                         <tr>
-                            <td>{{ $dato['Nro Producto'] }}</td>
-                            <td>{{ $dato['Nombre'] }}</td>
-                            <td>{{ $dato['Marca'] }}</td>
-                            <td>{{ $dato['Stock Actual'] }}</td>
-                            <td><input type="text" name="stock_ingresado[]" value="{{ $dato['Stock Ingresado'] }}"></td>
+                            <td>{{ $producto['Nro Producto'] }}</td>
+                            <td>{{ $producto['Nombre'] }}</td>
+                            <td>{{ $producto['Marca'] }}</td>
+                            <td>{{ $producto['Stock'] }}</td>
+                            <td><input type="text" name="stock_ingresado[]" value=""></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <button class="btn btn-success"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-success" onclick="agregarCambio(this)"><i class="fas fa-check"></i></button>
                                 </div>
                             </td>
+                        </tr>
                         </tr>
                         @endforeach
                     </x-tabla>
@@ -63,28 +49,18 @@
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>12</td>
-                                    <td>5</td>
-                                    <td class="action-buttons">
-                                        <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>-12</td>
-                                    <td class="action-buttons">
-                                        <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- Aquí se agregarán las filas de los cambios realizados -->
+                            <tbody id="cambios">
                             </tbody>
                         </table>
-                        <button class="btn btn-primary" style="margin-top: 20px;">Confirmar</button>
+                        <form id="formConfirmar" action="{{ route('stock_update') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="cambios" id="inputCambios">
+                            <button type="button" id="confirmarBtn" class="btn btn-primary" style="margin-top: 20px;">Confirmar</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>       
+    <script src="{{ asset('/assets/js/stock.js') }}"></script>
 @endsection
