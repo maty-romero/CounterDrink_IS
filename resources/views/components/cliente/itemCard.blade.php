@@ -21,8 +21,11 @@
             <div class="text-center">
                 <a class="btn btn-outline-dark mt-auto mb-3" href="{{ route('show_product', ['id' => $id]) }}">Ver producto</a>
             </div>
+            {{-- 
+            -- Ver luego si añadir --
+            
             <div class="text-center">
-                {{--
+            
                 @if (!Venta::enCarrito($id))
                     <form method='POST' action='{{ route('carrito_agregar', ['id' => $id]) }}'>
                         @csrf
@@ -38,13 +41,14 @@
                         Añadir al carrito
                     </button>     
                 @endif
-                --}}
+                
                 <button class="btn btn-outline-dark flex-shrink-0">
                     <i class="bi-cart-fill me-1"></i>
                     Añadir al carrito
                 </button>
                 
             </div>
+            --}}
         </div>
     </div>
 </div>
