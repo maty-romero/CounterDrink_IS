@@ -27,8 +27,9 @@ class ReporteController extends Controller
         $input = base_path() . '\database\reportes\FacturaCliente.jrxml';
         $output = base_path() . '\database\reportes\output\FacturaCliente';
 
-        $nombre_cliente = "Juan perez"; 
-        $dni = "1258452"; 
+        $cliente = session()->get('cliente');
+        $nombre_cliente = $cliente->nombre_cliente; 
+        $dni = $cliente->dni; 
 
         $options = [
             'format' => ['pdf'],

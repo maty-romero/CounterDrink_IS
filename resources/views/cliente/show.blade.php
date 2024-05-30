@@ -28,7 +28,7 @@
                         <div class="small mb-1">C&oacute;digo de producto: #CRZ-0{{$producto->id}}</div>
                         <h1 class="display-5 fw-bolder">{{$producto->nombre_producto}}</h1>
                         <div class="fs-5 mb-4">
-                            <span>${{$producto->precio_producto}}</span>
+                            <span>@money($producto->precio_producto)</span>
                         </div>
                         <p class="lead">{{$producto->descripcion}}</p>
                         <p class="lead">Tipo de bebida: {{$producto->tipo_bebida}}</p>

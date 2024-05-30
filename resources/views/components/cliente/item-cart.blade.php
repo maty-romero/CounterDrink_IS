@@ -26,8 +26,8 @@
   </form>
   </div>
   <div class="col-md-3 col-lg-3">
-    <h6 class="mb-4">Precio unitario: ${{ $precioUnitario }}</h6>
-    <h6 class="mb-0">Precio total: ${{ $precioTotal }}</h6>
+    <h6 class="mb-4">Precio unitario: @money($precioUnitario)</h6>
+    <h6 class="mb-0">Precio total: @money($precioTotal)</h6>
   </div>
   <div class="col-md-1 col-lg-1 col-xl-1 text-end">
     <form method='POST' action='{{ route('carrito_eliminar', $id) }}'>

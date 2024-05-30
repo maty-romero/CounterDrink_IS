@@ -13,7 +13,7 @@
                 <!-- Product name-->
                 <h5 class="fw-bolder">{{ $nombreProducto }}</h5>
                 <!-- Product price-->
-                <span class="text-muted">${{ $precioUnitario }}</span>
+                <span class="text-muted">@money($precioUnitario)</span>
             </div>
         </div>
         <!-- Product actions-->
