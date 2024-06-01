@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Producto;
 use App\Models\Venta; 
-use Illuminate\Http\Request;
-use App\Models\Producto; 
+use Illuminate\Http\Request; 
 
 class ProductoController extends Controller
 {
@@ -61,5 +60,26 @@ class ProductoController extends Controller
     {
         return view('administrativa.productos.edit');
     }
+
+    public function clientSearch(Request $request)
+    {
+        $query = $request->input('query');
+
+        if(!$query){
+            $productos = Producto::where('stock', '>=', 1)->get();
+            return view('cliente.partials.productos', compact('productos'))->render();
+        }
+
+        $productos = Producto::where('nombre_producto', 'LIKE', "%{$query}%")
+                        ->where('stock', '>=', 1)
+                        ->get();
+
+        if($productos->isEmpty()){ 
+            $productos = null; // no hay coincidencias en la busqueda
+        }
+
+        return view('cliente.partials.productos', compact('productos'))->render();
+    }
+
      
 }

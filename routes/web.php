@@ -57,6 +57,8 @@ Route::get('/productos/edit/{id}', [ProductoController::class, 'edit'])->name('p
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos_create');
 
 Route::get('/productos/stock', [StockController::class, 'index'])->name('stock_index');
+Route::get('/productos/search/cliente', [ProductoController::class, 'clientSearch'])->name('productos_client_search');
+
 
 Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes_index');
 Route::post("/reporteRedirect", [ReporteController::class, "reporteRedirect"])->name("reporteRedirect");
