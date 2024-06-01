@@ -35,14 +35,47 @@ class ProductoController extends Controller
        
     }
 
-    public function show()
+    public function show(string $id)
     {
-        return view('cliente.show');
+        $producto = Producto::find($id);
+        return view('administrativa.productos.show', compact('producto'));
     }
+
     
     public function edit(string $id)
     {
-        return view('administrativa.productos.edit');
+        $producto = Producto::find($id);
+        return view('administrativa.productos.edit', compact('producto'));
     }
+    
+    public function update(Request $request, string $id)
+    {
+        $producto = Producto::find($id);
+
+        $producto->nombre_producto = $request->name;
+        $producto->stock = $request->stock;
+        $producto->descripcion = $request->descripcion;
+        $producto->precio_producto = $request->precio;
+        $producto->contenido_alcohol = $request->vol;
+        $producto->tipo_bebida = $request->tipo;
+        $producto->capacidad_ml = $request->capacidad;
+        $producto->marca = $request->marca;
+    
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/images');
+            $producto->imagen = basename($path);
+        }
+    
+        $producto->save();
+    
+        return redirect()->route('productos_index')->with('success', 'Producto actualizado correctamente.');
+    }
+
      
+    public function destroy(string $id)
+    {
+        $producto = Producto::find($id);
+        $producto->delete();
+        return redirect()->route('productos_index')->with('success', 'producto eliminado correctamente');  
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 
 class UsuarioController extends Controller
@@ -11,7 +12,16 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        return view('administrativa.usuarios.index');
+        $usuarios = User::all()->map(function ($usuario) {
+            return [
+                'id' => $usuario->id,
+                'name' => $usuario->name,
+                'email' => $usuario->email,
+                'rol_usuario' => $usuario->rol_usuario,
+            ];
+        });
+        
+        return view('administrativa.usuarios.index', compact('usuarios'));        
     }
 
     /**
@@ -44,7 +54,8 @@ class UsuarioController extends Controller
      */
     public function edit(string $id)
     {
-        return view('administrativa.usuarios.edit');
+        $usuario = User::find($id);
+        return view('administrativa.usuarios.edit', compact('usuario'));
     }
 
     /**
@@ -52,7 +63,15 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $usuario = User::find($id);
+
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->password = $request->password;
+
+        $usuario->save();
+
+        return redirect()->route('usuarios_index', ['success' => 'true']);
     }
 
     /**
@@ -60,7 +79,9 @@ class UsuarioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $producto = User::find($id);
+        $producto->delete();
+        return redirect()->route('usuarios_index')->with('success', 'usuario eliminado correctamente');  
     }
 
     public function createSupervisor()
