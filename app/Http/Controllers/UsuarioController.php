@@ -19,7 +19,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-
+        return view('administrativa.usuarios.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class UsuarioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('administrativa.usuarios.edit');
     }
 
     /**

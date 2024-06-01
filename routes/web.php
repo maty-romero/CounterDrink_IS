@@ -38,6 +38,8 @@ Route::get('/reportes/comprobanteVenta/{nroComprobante}',  [ReporteController::c
 
 // Rutas Administration side
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios_index');
+Route::get('/usuarios/edit/{id}', [ProveedorController::class, 'edit'])->name('usuarios_edit');
+Route::get('/usuarios/create', [ProveedorController::class, 'create'])->name('usuarios_create');
 
 Route::get('/ventas', [VentaController::class, 'index'])->name('ventas_index');
 Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas_create');
@@ -59,6 +61,7 @@ Route::get('/productos/stock', [StockController::class, 'index'])->name('stock_i
 Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes_index');
 Route::post("/reporteRedirect", [ReporteController::class, "reporteRedirect"])->name("reporteRedirect");
 
+Route::post('/productos/stock', [StockController::class, 'update'])->name('stock_update');
 
 
 

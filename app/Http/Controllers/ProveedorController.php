@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Proveedor;
 
 class ProveedorController extends Controller
 {
     public function index()
     {
-        return view('administrativa.proveedores.index');
+        $proveedores = Proveedor::all();
+        return view('administrativa.proveedores.index', compact('proveedores'));
     }
 
     /**
