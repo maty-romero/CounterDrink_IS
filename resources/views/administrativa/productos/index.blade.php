@@ -24,20 +24,27 @@
                             <td>{{ $producto['Precio'] }}</td>
                             <td class="action-buttons">
                                 <div class="d-flex justify-content-center">
-                                    <a href="{{ route('productos_edit', $producto['Nro Producto']) }}" style="color: black; border: 2px solid black; width:26px; height: 26px; class=edit-btn me-2"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('productos_edit', $producto['Nro Producto']) }}" class="edit-btn me-2"><i class="fas fa-edit"></i></a>
                                     <form action="{{ route('productos_destroy', $producto['Nro Producto']) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="delete-btn ms-2"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="submit" class="delete-btn "><i class="fas fa-trash-alt"></i></button>
                                     </form>
-                                    <a href="{{ route('productos_show', $producto['Nro Producto']) }}" class="details-btn ms-2" style="color: blue; border: 2px solid blue; width: 26px; height: 26px;"><i class="fas fa-info-circle"></i></a>
+                                    <a href="{{ route('productos_show', $producto['Nro Producto']) }}" class="details-btn ms-2"><i class="fas fa-info-circle"></i></a>
                                 </div>
-                            </td>  
+                            </td>
                         </tr>
                     @endforeach
                 </x-tabla>
             </div>
-            </div>
         </div>
     </div>
 @endsection
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+

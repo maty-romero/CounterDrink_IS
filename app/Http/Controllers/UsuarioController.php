@@ -71,7 +71,7 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-        return redirect()->route('usuarios_index', ['success' => 'true']);
+        return redirect()->route('usuarios_index')->with('success', 'usuario actualizado correctamente');	
     }
 
     /**

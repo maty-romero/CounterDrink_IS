@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const descripcion = document.querySelector('textarea[name="descripcion"]').value.trim();
         const precio = document.querySelector('input[name="precio"]').value.trim();
         const vol = document.querySelector('input[name="vol"]').value.trim();
-        const tipo = document.querySelector('input[name="tipo"]').value.trim();
+        const tipo = document.querySelector('select[name="tipo"]').value.trim();
         const capacidad = document.querySelector('input[name="capacidad"]').value.trim();
         const marca = document.querySelector('input[name="marca"]').value.trim();
 

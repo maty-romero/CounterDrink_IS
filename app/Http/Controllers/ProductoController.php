@@ -49,27 +49,29 @@ class ProductoController extends Controller
     }
     
     public function update(Request $request, string $id)
-    {
-        $producto = Producto::find($id);
-
-        $producto->nombre_producto = $request->name;
-        $producto->stock = $request->stock;
-        $producto->descripcion = $request->descripcion;
-        $producto->precio_producto = $request->precio;
-        $producto->contenido_alcohol = $request->vol;
-        $producto->tipo_bebida = $request->tipo;
-        $producto->capacidad_ml = $request->capacidad;
-        $producto->marca = $request->marca;
+{
+    $producto = Producto::find($id);
     
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/images');
-            $producto->imagen = basename($path);
-        }
+    $producto->nombre_producto = $request->name;
+    $producto->stock = $request->stock;
+    $producto->descripcion = $request->descripcion;
+    $producto->precio_producto = $request->precio;
+    $producto->contenido_alcohol = $request->vol;
+    $producto->tipo_bebida = $request->tipo;
+    $producto->capacidad_ml = $request->capacidad;
+    $producto->marca = $request->marca;
     
-        $producto->save();
-    
-        return redirect()->route('productos_index')->with('success', 'Producto actualizado correctamente.');
+    if ($request->hasFile('imagenURL')) {
+        $rutaImagen = $request->file('imagenURL')->store('public/img');
+        $producto->imagen = basename($rutaImagen);
     }
+    
+    $producto->save();
+    
+    return redirect()->route('productos_index')->with('success', 'El producto ha sido modificado exitosamente');
+}
+
+    
 
      
     public function destroy(string $id)

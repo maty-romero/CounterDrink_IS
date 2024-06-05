@@ -1,0 +1,66 @@
+
+.edit-btn, .delete-btn, .details-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.edit-btn {
+    color: black;
+    border: 2px solid black;
+    width: 26px;       
+    height: 26px;
+}
+
+.delete-btn {
+    color: red;
+    border: 2px solid red;
+    width: 26px;       
+    height: 26px;
+}
+
+.details-btn {
+    color: blue;
+    border: 2px solid blue;
+    width: 26px;       
+    height: 26px;
+}
+
+.delete-btn i, .edit-btn i, .details-btn i {
+    margin: auto;
+}
+
+.action-buttons a, .action-buttons button {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 0;
+}
+
+#success-message {
+    position: auto;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 15px 25px;
+    border-radius: 5px;
+    background-color: #d4edda;
+    color: #155724;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}

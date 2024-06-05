@@ -35,8 +35,13 @@
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label class="col-form-label" for="Tipo">Tipo de bebida:</label>
-                            <input class="form-control form-control-user" type="text" id="Tipo-id" placeholder="Tipo de bebida" required name="tipo" value="{{ $producto->tipo_bebida }}">
-                        </div>
+                            <select class="form-control form-control-user" id="Tipo-id" name="tipo" required>
+                                <option value="cerveza">Cerveza</option>
+                                <option value="vodka">Vodka</option>
+                                <option value="whisky">Whisky</option>
+                                <option value="vino">Vino</option>
+                            </select>
+                        </div>                        
                         <div class="col-sm-6">
                             <label class="col-form-label" for="Capacidad">Capacidad (Lts):</label>
                             <input class="form-control form-control-user" type="number" placeholder="Capacidad" required name="capacidad" value="{{ $producto->capacidad_ml }}">
@@ -49,11 +54,7 @@
                     <div class="mb-3">
                         <label class="col-form-label" for="image">Imagen del producto:</label>
                         <input class="form-control form-control-user" type="file" id="image-id" name="image">
-                        @if($producto->imagen)
-                            <div class="mt-2">
-                                <img src="{{ $producto->imagen }}" alt="Imagen del producto" style="max-width: 200px;">
-                            </div>
-                        @endif
+
                     </div>
                     <button class="btn btn-primary d-block btn-user w-100" id="crear-cuenta-btn-id" type="button">Modificar datos</button>
                 </form>
@@ -62,3 +63,4 @@
     </div>
     <script src="{{ asset('/assets/js/productoValidation.js') }}"></script>
 @endsection
+
