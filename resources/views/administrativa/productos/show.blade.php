@@ -22,7 +22,7 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     {{-- Tamaño imagen: 600x700--}}
                     <div class="col-md-6">
-                        <img class="card-img-top mb-5 mb-md-0" width="700" height="600" src="{{ $producto->imagenURL }}" alt="{{ $producto->nombre_producto }}" />
+                        <img class="card-img-top mb-5 mb-md-0" width="700" height="600" src="{{ asset($producto->imagenURL) }}" alt="{{ $producto->nombre_producto }}"/>
                     </div>
                     <div class="col-md-6">
                         <h1 class="display-5 fw-bolder">{{ $producto->nombre_producto }}</h1>

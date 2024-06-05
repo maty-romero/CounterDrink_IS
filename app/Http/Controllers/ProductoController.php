@@ -61,9 +61,11 @@ class ProductoController extends Controller
     $producto->capacidad_ml = $request->capacidad;
     $producto->marca = $request->marca;
     
-    if ($request->hasFile('imagenURL')) {
-        $rutaImagen = $request->file('imagenURL')->store('public/img');
-        $producto->imagen = basename($rutaImagen);
+    if ($request->hasFile('image')) {
+        $imagen = $request->file('image');
+        $imagenURL = 'img/' . $imagen->getClientOriginalName();
+        $imagen->move(public_path('img'), $imagen->getClientOriginalName());
+        $producto->imagenURL = $imagenURL;
     }
     
     $producto->save();

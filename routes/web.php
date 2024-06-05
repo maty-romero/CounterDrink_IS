@@ -48,7 +48,7 @@ Route::get('/productos/edit/{id}', [ProductoController::class, 'edit'])->name('p
 Route::put('/productos/update/{id}', [ProductoController::class, 'update'])->name('producto_update');
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos_create');
 Route::delete('/productos/destroy/{id}', [ProductoController::class, 'destroy'])->name('productos_destroy');
-Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos_show');
+Route::get('/productos/show/{id}', [ProductoController::class, 'show'])->name('productos_show');
 
 Route::get('/productos/stock', [StockController::class, 'index'])->name('stock_index');
 Route::post('/productos/stock', [StockController::class, 'update'])->name('stock_update');
