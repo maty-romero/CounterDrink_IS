@@ -37,8 +37,17 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $user = new User();
+        $user->name = $request->name;
+        $user->rol_usuario = $request->rol_usuario;
+        $user->password = bcrypt($request->password);
+        $user->email = $request->email;
+        $user->save();
+
+        // Redireccionar a la página deseada
+        return redirect()->route('usuarios_index')->with('success', 'Usuario creado correctamente.');
     }
+    
 
 
     /**

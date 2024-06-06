@@ -5,9 +5,10 @@
         <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Modificar producto</h1>
         <div class="form-container">
             <div class="form-card">
-                <form class="user" id="formUsuario" method="POST" action="{{ route('producto_update', $producto->id) }}" enctype="multipart/form-data">
+                <form class="user" id="formProducto" method="POST" action="{{ route('producto_update', $producto->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="is_editing" value="{{ isset($producto) ? 'true' : 'false' }}">
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label class="col-form-label" for="name">Nombre:</label>
@@ -52,8 +53,8 @@
                         <input class="form-control form-control-user assistant-hide" type="text" placeholder="Marca" id="Marca-id" required name="marca" value="{{ $producto->marca }}">
                     </div>
                     <div class="mb-3">
-                        <label class="col-form-label" for="image">Imagen del producto:</label>
-                        <input class="form-control form-control-user" type="file" id="image-id" name="image">
+                        <label class="col-form-label" for="imagen">Imagen del producto:</label>
+                        <input class="form-control form-control-user" type="file" id="imagen-id" name="imagen" value="{{$producto->imagenURL}}">
 
                     </div>
                     <button class="btn btn-primary d-block btn-user w-100" id="crear-cuenta-btn-id" type="button">Modificar datos</button>
