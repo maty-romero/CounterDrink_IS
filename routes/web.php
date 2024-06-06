@@ -45,6 +45,11 @@ Route::get('/ventas', [VentaController::class, 'index'])->name('ventas_index');
 Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas_create');
 Route::post('/ventas/store/presencial', [VentaController::class, 'storeVentaPresencial'])->name('venta_presencial_finalizar');
 Route::post('/existeVentas', [VentaController::class, 'validarVentas'])->name('validarVentas');
+// Registro nueva venta  
+Route::post('/ventas/agregar/{id}', [VentaController::class, 'agregarProductoDetalleVenta'])->name('ventas_agregar_producto');
+Route::post('/ventas/actualizar/{id}', [VentaController::class, 'actualizarCantidadProductoDetalleVenta'])->name('ventas_actualizar_producto');
+Route::post('/ventas/eliminar/{id}', [VentaController::class, 'eliminarProductoDetalleVenta'])->name('ventas_eliminar_producto');
+
 
 
 

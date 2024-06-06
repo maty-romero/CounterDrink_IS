@@ -174,7 +174,21 @@ class Venta extends Model
         return $venta->id;
     }
 
-        
+    public static function calcularSubtotalDetalleVenta()
+    {
+        $subtotal = 0; //Subtotal del carrito
+
+        $request = new Request();
+        $request->setLaravelSession(session());
+        $detalle = $request->session()->get('detalleVenta');
+
+        if ($detalle) {
+            foreach ($detalle as $item) {
+                $subtotal += $item->elemento->getPrecioDeVenta() * $item->unidades;   
+            }
+        }
+        return $subtotal;
+    }    
 
     
     

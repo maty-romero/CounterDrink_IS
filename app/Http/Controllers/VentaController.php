@@ -16,7 +16,17 @@ class VentaController extends Controller
     }
     public function create()
     {
-        return view('administrativa/ventas/create');
+        $request = new Request();
+        $request->setLaravelSession(session());
+        $detalle = $request->session()->get('detalleVenta');
+        $subtotal = Venta::calcularSubtotalDetalleVenta(); 
+
+        $productos = Producto::all();        
+        return view('administrativa/ventas/create', [
+            'productos' => $productos,
+            'detalleVenta' => $detalle,
+            'subtotal' => $subtotal    
+        ]);
     }
 
     public function homeShop()
@@ -48,6 +58,8 @@ class VentaController extends Controller
     {
         Venta::removerDelCarrito($id);
         return to_route('show_carrito');
+        //return response()->json(['success' => 'Producto eliminado exitosamente.'], 200)
+        //return redirect()->back(); 
     }
 
     public function storeVentaOnline(Request $request)
@@ -120,5 +132,92 @@ class VentaController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function agregarProductoDetalleVenta(string $id)
+    {
+        $request = new Request();
+        $request->setLaravelSession(session());
+        $detalle = $request->session()->get('detalleVenta'); 
+
+        foreach ($detalle as $item) {
+            if ($item->elemento->id == $id) {
+                return redirect()->back()->with('error', 'El producto ya está en el detalle de la venta.');
+            }
+        }
+
+        $productoEncontrado = Producto::findOrFail($id); 
+        if($productoEncontrado->stock <= 0){
+            return redirect()->back()->with('error', 'El producto no tiene stock suficiente.');    
+        }
+
+        $itemVenta = new stdClass();
+        $itemVenta->unidades = 1; // inicialmente en 1 
+        $itemVenta->elemento = $productoEncontrado;
+        
+        $detalle[] = $itemVenta;
+        $request->session()->put('detalleVenta', $detalle);
+
+        $detalleVenta = $request->session()->get('detalleVenta');
+        $subtotal = Venta::calcularSubtotalDetalleVenta(); 
+
+        return view('administrativa.ventas.create', [
+            'detalleVenta' => $detalleVenta, 
+            'subtotal' => $subtotal,
+            'productos' => Producto::all(), 
+        ]);
+    }
+
+    public function actualizarCantidadProductoDetalleVenta(Request $request, string $id)
+    {
+        $cantidad = $request->input('cantidad');
+        $request->setLaravelSession(session());
+        $detalle = $request->session()->get('detalleVenta');
+
+        foreach ($detalle as $item) {
+            if ($item->elemento->id == $id) {
+                if ($cantidad <= 0) {
+                    return response()->json(['error' => 'La cantidad debe ser mayor que cero.'], 400);
+                }
+                if ($cantidad > $item->elemento->stock) {
+                    return response()->json(['error' => 'No hay suficiente stock disponible.'], 400);
+                }
+                $item->unidades = $cantidad;
+                break;
+            }
+        }
+        
+        $request->session()->put('detalleVenta', $detalle);
+        $subtotal = Venta::calcularSubtotalDetalleVenta();
+
+        return response()->json([
+            'success' => true,
+            'subtotal' => $subtotal,
+            'precio_total' => $item->elemento->precio_producto * $item->unidades
+        ]);
+    }
+
+    public function eliminarProductoDetalleVenta(Request $request, string $id)
+    {
+        $request->setLaravelSession(session());
+        $detalle = $request->session()->get('detalleVenta', []);
+        
+        $detalle = array_filter($detalle, function($item) use ($id) {
+            return $item->elemento->id != $id; // Filtrado producto a eliminar
+        });
+
+        $detalle = array_values($detalle); 
+        $request->session()->put('detalleVenta', $detalle);
+
+        $subtotal = Venta::calcularSubtotalDetalleVenta();
+        $productos = Producto::all();
+
+        return view('administrativa.ventas.create', [
+            'detalleVenta' => $detalle,
+            'productos' => $productos,
+            'subtotal' => $subtotal
+        ]);
+    }
+
+
 
 }
