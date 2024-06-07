@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
-use App\Models\Venta; 
+use App\Models\Venta;
+use App\Models\ProductosVendidos; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -58,8 +59,6 @@ class VentaController extends Controller
     {
         Venta::removerDelCarrito($id);
         return to_route('show_carrito');
-        //return response()->json(['success' => 'Producto eliminado exitosamente.'], 200)
-        //return redirect()->back(); 
     }
 
     public function storeVentaOnline(Request $request)
@@ -133,21 +132,27 @@ class VentaController extends Controller
         return response()->json(['success' => true]);
     }
 
+    // *** Realizar venta presencial *** 
+
     public function agregarProductoDetalleVenta(string $id)
     {
         $request = new Request();
         $request->setLaravelSession(session());
         $detalle = $request->session()->get('detalleVenta'); 
 
-        foreach ($detalle as $item) {
-            if ($item->elemento->id == $id) {
-                return redirect()->back()->with('error', 'El producto ya está en el detalle de la venta.');
+        if($detalle != null){
+            foreach ($detalle as $item) {
+                if ($item->elemento->id == $id) {
+                    session()->flash('error', 'El producto ya está en el detalle de la venta.');
+                    return redirect()->route('ventas_create'); // con parametros session
+                }
             }
         }
-
+    
         $productoEncontrado = Producto::findOrFail($id); 
         if($productoEncontrado->stock <= 0){
-            return redirect()->back()->with('error', 'El producto no tiene stock suficiente.');    
+            session()->flash('error', 'El producto ya está en el detalle de la venta.');
+            return redirect()->route('ventas_create');  
         }
 
         $itemVenta = new stdClass();
@@ -155,16 +160,10 @@ class VentaController extends Controller
         $itemVenta->elemento = $productoEncontrado;
         
         $detalle[] = $itemVenta;
-        $request->session()->put('detalleVenta', $detalle);
+        $request->session()->put('detalleVenta', $detalle); 
 
-        $detalleVenta = $request->session()->get('detalleVenta');
-        $subtotal = Venta::calcularSubtotalDetalleVenta(); 
-
-        return view('administrativa.ventas.create', [
-            'detalleVenta' => $detalleVenta, 
-            'subtotal' => $subtotal,
-            'productos' => Producto::all(), 
-        ]);
+        session()->flash('success', 'Producto agregado exitosamente.');
+        return redirect()->route('ventas_create'); // con parametros session
     }
 
     public function actualizarCantidadProductoDetalleVenta(Request $request, string $id)
@@ -219,5 +218,53 @@ class VentaController extends Controller
     }
 
 
+    public function storeVentaPresencial()
+    {
+        $request = new Request();
+        $request->setLaravelSession(session());
+        $detalle = $request->session()->get('detalleVenta'); 
+
+        if($detalle != null){
+            $subtotal = 0; 
+            foreach ($detalle as $item) { // verificar stock en productos en detalle Venta 
+                $producto = $item->elemento;
+                $unidades = $item->unidades; 
+
+                if (!$producto->hayStockProducto($unidades)) {
+                    session()->flash('error', 'No hay stock suficiente para alguno de los productos.');
+                    return redirect()->route('ventas_create'); // con parametros session
+                }else{
+                    $subtotal += $item->elemento->getPrecioDeVenta() * $item->unidades;
+                }
+            }
+        }  
+
+        // Guardar venta
+        $venta = new Venta;
+        $venta->fecha_venta = now('GMT-3');
+        $venta->monto_final_venta = $subtotal;
+        $venta->nro_pago = rand(1, 100000); //Al ser simulado se genera un random
+        $venta->save();
+
+        //Guardar productos vendidos
+        foreach ($detalle as $item) {
+            $producto = new ProductosVendidos();
+            $producto->id_venta = $venta->id;
+            $producto->id_producto = $item->elemento->id;
+            $producto->unidades_vendidas_prod = $item->unidades;
+            $producto->save();
+            $item->elemento->reducirStockProducto($item->unidades); //Actualizar stock producto
+        }
+        
+        // Limpieza detalleVenta session
+        $request = new Request();
+        $request->setLaravelSession(session());
+        $request->session()->put('detalleVenta', array());
+        
+        session()->flash('success', 'Su compra se ha realizada con éxito.');
+        session()->flash('nroComprobante', $venta->id); // nro comprobante para generacion pdf 
+
+        return redirect()->route('ventas_create'); // con parametros session
+    }
 
 }

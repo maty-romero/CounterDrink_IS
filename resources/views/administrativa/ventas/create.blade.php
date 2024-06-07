@@ -4,6 +4,12 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4 mb-3" style="text-align: center;">Registrar una venta</h1>
 
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @if(session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
@@ -75,7 +81,10 @@
                             Detalle de la venta
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-warning btn-outline-dark m-1">Finalizar venta</a>
+                            <form method="POST" action="{{ route('venta_presencial_finalizar') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-warning btn-outline-dark m-1">Finalizar venta</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -133,51 +142,6 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const cantidades = document.querySelectorAll('.cantidad');
-            const msgInfo = document.getElementById('msgInfo');
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    <script src="{{asset('js/editarCantVenta.js')}}"></script>
 
-            cantidades.forEach(input => {
-                input.addEventListener('input', function () {
-                    const id = this.dataset.id;
-                    const cantidad = parseInt(this.value);
-
-                    fetch(`/ventas/actualizar/${id}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        body: JSON.stringify({ cantidad: cantidad })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            msgInfo.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
-                            return;
-                        }
-                        msgInfo.innerHTML = ''; 
-
-                        if (data.success) {
-                            const precioTotalElement = document.getElementById(`precio-total-${id}`);
-                            precioTotalElement.innerText = `$${data.precio_total.toFixed(2)}`;
-                            actualizarSubtotal(data.subtotal);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                });
-            });
-
-            function actualizarSubtotal(subtotal) {
-                const subtotalElement = document.querySelector('.d-flex.justify-content-end h4');
-                if (subtotalElement) {
-                    subtotalElement.innerHTML = subtotal ? `<strong>Subtotal: $${subtotal.toFixed(2)}</strong>` : '&nbsp;';
-                }
-            }
-        });
-    </script>
 @endsection
