@@ -43,7 +43,7 @@
                         <tbody>
                             @foreach($productos as $producto)
                                 <tr class="text-center">
-                                    <td>{{ "#CRZ-00" . $producto->id }}</td>
+                                    <td>{{ "#CRZ-0" . $producto->id }}</td>
                                     <td>{{ $producto->nombre_producto }}</td>
                                     <td>{{ $producto->marca }}</td>
                                     <td>{{ $producto->stock }}</td>
@@ -51,7 +51,10 @@
                                     <td>{{ $producto->capacidad_ml }}</td>
                                     <td class="action-buttons">
                                         <div class="d-flex justify-content-center">
-                                            <button class="btn btn-warning ms-2"><i class="fas fa-eye"></i></button>
+                                            <button type="button" class="btn btn-warning ms-2 view-product" data-bs-toggle="modal" data-bs-target="#productModal" data-product="{{ json_encode($producto) }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            
                                             <form method="POST" action="{{ route('ventas_agregar_producto', $producto->id) }}">
                                                 @csrf
                                                 <button type="submit" class="btn btn-success ms-2">
@@ -142,6 +145,67 @@
         </div>
     </div>
 
+
+    <!-- Modal Ver Producto -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Detalles del producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="productImage" class="card-img-top mb-5 mb-md-0" width="250" height="450" src="" alt="..." />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="small mb-1">C&oacute;digo de producto: <span id="productCode"></span></div>
+                            <h1 class="display-5 fw-bolder" id="productName"></h1>
+                            <div class="fs-5 mb-4">
+                                <span id="productPrice"></span>
+                            </div>
+                            <p class="lead" id="productDescription"></p>
+                            <p class="lead">Tipo de bebida: <span id="productType"></span></p>
+                            <p class="lead">Marca: <span id="productBrand"></span></p>
+                            <p class="lead">Contenido de la unidad: <span id="productCapacity"></span> ml</p>
+                            <p class="lead">Contenido de alcohol: <span id="productAlcohol"></span>%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+
+
+
     <script src="{{asset('js/editarCantVenta.js')}}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewProductButtons = document.querySelectorAll('.view-product');
+            
+            viewProductButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const product = JSON.parse(this.getAttribute('data-product'));
+    
+                    document.getElementById('productImage').src = product.imagenURL;
+                    document.getElementById('productCode').innerText = `#CRZ-0${product.id}`;
+                    document.getElementById('productName').innerText = product.nombre_producto;
+                    document.getElementById('productPrice').innerText = `$${product.precio_producto}`;
+                    document.getElementById('productDescription').innerText = product.descripcion;
+                    document.getElementById('productType').innerText = product.tipo_bebida;
+                    document.getElementById('productBrand').innerText = product.marca;
+                    document.getElementById('productCapacity').innerText = Math.round(product.capacidad_ml);
+                    document.getElementById('productAlcohol').innerText = Math.round(product.contenido_alcohol);
+                });
+            });
+        });
+    </script>
 
 @endsection
