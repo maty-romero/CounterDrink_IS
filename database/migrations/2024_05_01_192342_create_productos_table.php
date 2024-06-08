@@ -26,6 +26,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('id_proveedor');
             $table->foreign('id_proveedor')->references('id')->on('proveedores');
+
+            $table->softDeletes();
         });
     }
 

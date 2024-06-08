@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreign('id_venta')->references('id')->on('ventas');
             $table->unsignedBigInteger('id_producto');
             $table->foreign('id_producto')->references('id')->on('productos');
+
+            $table->softDeletes();
         });
     }
 
