@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Producto;
 use App\Models\Venta; 
+use App\Models\Proveedor;
 use Illuminate\Http\Request; 
-
 class ProductoController extends Controller
 {
     public function index()
@@ -27,12 +28,34 @@ class ProductoController extends Controller
 
     public function create()
     {
-        return view('administrativa.productos.create');
+        $proveedores = Proveedor::all();
+        return view('administrativa.productos.create',compact('proveedores'));
     }
 
     public function store(Request $request)
-    {
-       
+    {   
+        $producto = new Producto();
+        $producto->nombre_producto = $request->name;
+        $producto->stock = $request->stock;
+        $producto->descripcion = $request->descripcion;
+        $producto->precio_producto = $request->precio;
+        $producto->contenido_alcohol = $request->vol;
+        $producto->tipo_bebida = $request->tipo;
+        $producto->capacidad_ml = $request->capacidad;
+        $producto->marca = $request->marca;
+        $producto->id_proveedor = $request->proveedor;
+
+
+        if ($request->hasFile('imagen')) {
+            $imagen = $request->file('imagen');
+            $imagenURL = 'img/' . $imagen->getClientOriginalName();
+            $imagen->move(public_path('img'), $imagen->getClientOriginalName());
+            $producto->imagenURL = $imagenURL;
+        }
+        
+        $producto->save();
+        
+        return redirect()->route('productos_index')->with('success', 'El producto ha sido modificado exitosamente');
     }
 
     public function show(string $id)
@@ -58,7 +81,40 @@ class ProductoController extends Controller
     
     public function edit(string $id)
     {
-        return view('administrativa.productos.edit');
+        $producto = Producto::find($id);
+        return view('administrativa.productos.edit', compact('producto'));
+    }
+    
+    public function update(Request $request, string $id)
+    {
+        $producto = Producto::find($id);
+        
+        $producto->nombre_producto = $request->name;
+        $producto->stock = $request->stock;
+        $producto->descripcion = $request->descripcion;
+        $producto->precio_producto = $request->precio;
+        $producto->contenido_alcohol = $request->vol;
+        $producto->tipo_bebida = $request->tipo;
+        $producto->capacidad_ml = $request->capacidad;
+        $producto->marca = $request->marca;
+        
+        if ($request->hasFile('imagen')) {
+            $imagen = $request->file('imagen');
+            $imagenURL = 'img/' . $imagen->getClientOriginalName();
+            $imagen->move(public_path('img'), $imagen->getClientOriginalName());
+            $producto->imagenURL = $imagenURL;
+        }
+        
+        $producto->save();
+        
+        return redirect()->route('productos_index')->with('success', 'El producto ha sido modificado exitosamente');
+    }
+     
+    public function destroy(string $id)
+    {
+        $producto = Producto::find($id);
+        $producto->delete();
+        return redirect()->route('productos_index')->with('success', 'producto eliminado correctamente');  
     }
 
     public function clientSearch(Request $request)

@@ -38,8 +38,12 @@ Route::get('/reportes/comprobanteVenta/{nroComprobante}',  [ReporteController::c
 
 // Rutas Administration side
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios_index');
-Route::get('/usuarios/edit/{id}', [ProveedorController::class, 'edit'])->name('usuarios_edit');
-Route::get('/usuarios/create', [ProveedorController::class, 'create'])->name('usuarios_create');
+Route::get('/usuarios/edit/{id}', [UsuarioController::class, 'edit'])->name('usuarios_edit');
+Route::put('/usuarios/update/{id}', [UsuarioController::class, 'update'])->name('usuarios_update');
+Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios_create');
+Route::post('/usuarios/store', [UsuarioController::class, 'store'])->name('usuarios_store');
+Route::delete('/usuarios/destroy/{id}', [UsuarioController::class, 'destroy'])->name('usuarios_destroy');
+
 
 Route::get('/ventas', [VentaController::class, 'index'])->name('ventas_index');
 Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas_create');
@@ -50,6 +54,7 @@ Route::post('/ventas/agregar/{id}', [VentaController::class, 'agregarProductoDet
 Route::post('/ventas/actualizar/{id}', [VentaController::class, 'actualizarCantidadProductoDetalleVenta'])->name('ventas_actualizar_producto');
 Route::post('/ventas/eliminar/{id}', [VentaController::class, 'eliminarProductoDetalleVenta'])->name('ventas_eliminar_producto')->middleware('web');
 Route::post('/ventas/store/presencial', [VentaController::class, 'storeVentaPresencial'])->name('venta_presencial_finalizar');
+
 
 
 
@@ -64,7 +69,11 @@ Route::delete('/proveedores/delete/{id}', [ProveedorController::class, 'destroy'
 
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos_index');
 Route::get('/productos/edit/{id}', [ProductoController::class, 'edit'])->name('productos_edit');
+Route::put('/productos/update/{id}', [ProductoController::class, 'update'])->name('producto_update');
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos_create');
+Route::post('/productos/store', [ProductoController::class, 'store'])->name('productos_store');
+Route::delete('/productos/destroy/{id}', [ProductoController::class, 'destroy'])->name('productos_destroy');
+Route::get('/productos/show/{id}', [ProductoController::class, 'show'])->name('productos_show');
 
 Route::get('/productos/stock', [StockController::class, 'index'])->name('stock_index');
 Route::get('/productos/search/cliente', [ProductoController::class, 'clientSearch'])->name('productos_client_search');

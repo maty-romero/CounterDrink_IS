@@ -15,23 +15,19 @@
             </div>
             <div class="card-body">
                 <x-tabla columna="Nombre,Rol,Email,Accion">
-                    @php
-                        $usuarios = [
-                            ['nombre' => 'John Doe', 'rol' => 'Admin', 'email' => 'johndoe@example.com'],
-                            ['nombre' => 'Jane Smith', 'rol' => 'User', 'email' => 'janesmith@example.com'],
-                            ['nombre' => 'Mike Johnson', 'rol' => 'User', 'email' => 'mikejohnson@example.com'],
-                        ];
-                    @endphp
                     @foreach($usuarios as $usuario)
                         <tr>
-                            <td>{{ $usuario['nombre'] }}</td>
-                            <td>{{ $usuario['rol'] }}</td>
+                            <td>{{ $usuario['name'] }}</td>
+                            <td>{{ $usuario['rol_usuario'] }}</td>
                             <td>{{ $usuario['email'] }}</td>
                             <td class="action-buttons">
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-primary edit-btn me-2" href="{{ route('usuarios_edit', ['id' => $usuario['id']]) }}"><i class="fas fa-edit"></i></a>
-                                    <button class="delete-btn ms-2"><i class="fas fa-trash-alt"></i></button>
-                                </div>
+                                    <a href="{{ route('usuarios_edit', $usuario['id']) }}" style="color: black; border: 2px solid black; width:26px; height: 26px; class=edit-btn me-2"><i class="fas fa-edit"></i></a>
+                                    <form action="{{ route('usuarios_destroy', $usuario['id']) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete-btn ms-2"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                             </td>
                         </tr>
                     @endforeach
