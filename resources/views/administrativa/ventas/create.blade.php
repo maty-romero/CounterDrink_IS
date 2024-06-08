@@ -180,9 +180,6 @@
         </div>
     </div>
 
-  
-
-
 
     <script src="{{asset('js/editarCantVenta.js')}}"></script>
 
