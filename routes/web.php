@@ -57,6 +57,11 @@ Route::get('/proveedores', [ProveedorController::class, 'index'])->name('proveed
 Route::get('/proveedores/edit/{id}', [ProveedorController::class, 'edit'])->name('proveedores_edit');
 Route::get('/proveedores/create', [ProveedorController::class, 'create'])->name('proveedores_create');
 
+Route::post('/proveedores/store', [ProveedorController::class, 'store'])->name('proveedores_store');
+Route::put('/proveedores/update/{id}', [ProveedorController::class, 'update'])->name('proveedores_update')->middleware('web');
+Route::delete('/proveedores/delete/{id}', [ProveedorController::class, 'destroy'])->name('proveedores_destroy')->middleware('web');
+
+
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos_index');
 Route::get('/productos/edit/{id}', [ProductoController::class, 'edit'])->name('productos_edit');
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos_create');
