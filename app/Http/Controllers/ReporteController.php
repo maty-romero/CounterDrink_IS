@@ -14,6 +14,7 @@ class ReporteController extends Controller
         return view('administrativa.reportes.index');
     }
 
+    /*
     public function comprobanteVenta(string $comprobante)
     {
         $ventaCheck = Venta::where("id", $comprobante)->get(); 
@@ -56,6 +57,62 @@ class ReporteController extends Controller
 
         return response()->file($pathToFile);
     }
+    */
+
+    public function comprobanteVenta(string $comprobante)
+    {
+        $ventaCheck = Venta::where("id", $comprobante)->get();
+
+        if (count($ventaCheck) === 0) {
+            return abort(404);
+        }
+
+        $jasper = new PHPJasper();
+
+        $path_subreport = base_path() . '/database/reportes/';
+        $input = null;
+        $options = [
+            'format' => ['pdf'],
+            'locale' => 'en',
+            'params' => [
+                'NroVenta' => $comprobante,
+                "SubReportPath" => $path_subreport
+            ],
+            'db_connection' => [
+                //datos conexión base
+                'driver' => 'mysql',
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'database' => 'counterdrink',
+                'username' => 'root'
+            ],
+        ];
+
+        // existe cliente en caso de compra online
+        if (session()->has('cliente')) {
+            $input = base_path() . '\database\reportes\FacturaCliente.jrxml';
+            $cliente = session()->get('cliente');
+            $nombre_cliente = $cliente->nombre_cliente;
+            $dni = $cliente->dni;
+            // Agregar  datos del cliente a los parametros
+            $options['params']['nombre_cliente'] = $nombre_cliente;
+            $options['params']['dni'] = $dni;
+            $output = base_path() . '\database\reportes\output\FacturaCliente';
+
+            session()->forget('cliente'); // limpio session
+
+        } else {
+            $input = base_path() . '\database\reportes\FacturaVenta.jrxml';
+            $output = base_path() . '\database\reportes\output\FacturaVenta';
+        }
+
+        $jasper->compile($input)->execute();
+        $jasper->process($input, $output, $options)->execute();
+        $pathToFile = $output . '.pdf';
+
+        return response()->file($pathToFile);
+    }
+        
 
     public function reporteRedirect(Request $request)
     {
