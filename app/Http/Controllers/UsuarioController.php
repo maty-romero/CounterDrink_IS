@@ -12,15 +12,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = User::all()->map(function ($usuario) {
-            return [
-                'id' => $usuario->id,
-                'name' => $usuario->name,
-                'email' => $usuario->email,
-                'rol_usuario' => $usuario->rol_usuario,
-            ];
-        });
-        
+        $usuarios = User::where('rol_usuario', '!=', 'administrador')->paginate(5);
         return view('administrativa.usuarios.index', compact('usuarios'));        
     }
 
@@ -80,7 +72,7 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-        return redirect()->route('usuarios_index')->with('success', 'usuario actualizado correctamente');	
+        return redirect()->route('usuarios_index')->with('success', 'Usuario actualizado correctamente');	
     }
 
     /**
@@ -91,10 +83,5 @@ class UsuarioController extends Controller
         $producto = User::find($id);
         $producto->delete();
         return redirect()->route('usuarios_index')->with('success', 'usuario eliminado correctamente');  
-    }
-
-    public function createSupervisor()
-    {
-        
     }
 }

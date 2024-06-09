@@ -10,17 +10,7 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::all()->map(function ($producto) {
-            return [
-                'Nro Producto' => $producto->id,
-                'Nombre' => $producto->nombre_producto,
-                'Marca' => $producto->marca,
-                'Stock' => $producto->stock,
-                'Precio' => $producto->precio_producto,
-                'capacidad en (Lts)' => $producto->capacidad_ml, 
-                'Descripcion' => $producto->descripcion,
-            ];
-        });
+        $productos = Producto::paginate(5); 
         return view('administrativa.productos.index', compact('productos'));
     }
 
@@ -114,7 +104,7 @@ class ProductoController extends Controller
     {
         $producto = Producto::find($id);
         $producto->delete();
-        return redirect()->route('productos_index')->with('success', 'producto eliminado correctamente');  
+        return redirect()->route('productos_index')->with('success', 'El producto ha sido eliminado correctamente');  
     }
 
     public function clientSearch(Request $request)

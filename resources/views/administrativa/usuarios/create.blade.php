@@ -9,13 +9,12 @@
                     @csrf
                     <div class="row mb-3">
                         <div class="col-sm-6">
-                            <label class="col-form-label" for="name">Nombre:</label>
+                            <label class="col-form-label" for="name">Nombre de usuario:</label>
                             <input class="form-control form-control-user" type="text" placeholder="Nombre" required="true" name="name" value="{{ old('name') }}" title="">
                         </div>
                         <div class="col-sm-6">
                             <label class="col-form-label" for="rol_usuario">Tipo de usuario:</label>
                             <select class="form-control form-control-user" name="rol_usuario" required="true">
-                                <option value="">Tipo de usuario</option>
                                 <option value="abastecedor">Abastecedor</option>
                                 <option value="cajero">Cajero</option>
                             </select>

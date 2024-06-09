@@ -1,50 +1,112 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container-fluid px-4">
-        <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Productos</h1>
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between">
-                <div>
-                    <i class="fas fa-table me-1"></i>
-                    Tabla de productos
-                </div>
-                <div>
-                    <a class="btn btn-primary" href="{{ route('productos_create') }}">Agregar Nuevo</a>
-                </div>
+<div class="container-fluid px-4">
+    <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Productos</h1>
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between">
+            <div>
+                <i class="fas fa-table me-1"></i>
+                Tabla de productos
             </div>
-            <div class="card-body">
-                <x-tabla columna="Nro Producto,Nombre,Marca,Stock,Precio,Accion">
+            <div>
+                <a class="btn btn-primary" href="{{ route('productos_create') }}">Agregar nuevo producto</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>Cod Producto</th>
+                        <th>Nombre producto</th>
+                        <th>Marca</th>
+                        <th>Stock</th>
+                        <th>Precio</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach($productos as $producto)
-                        <tr>
-                            <td>{{ $producto['Nro Producto'] }}</td>
-                            <td>{{ $producto['Nombre'] }}</td>
-                            <td>{{ $producto['Marca'] }}</td>
-                            <td>{{ $producto['Stock'] }}</td>
-                            <td>{{ $producto['Precio'] }}</td>
-                            <td class="action-buttons">
-                                <div class="d-flex justify-content-center">
-                                    <a href="{{ route('productos_edit', $producto['Nro Producto']) }}" class="edit-btn me-2"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('productos_destroy', $producto['Nro Producto']) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="delete-btn "><i class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                    <a href="{{ route('productos_show', $producto['Nro Producto']) }}" class="details-btn ms-2"><i class="fas fa-info-circle"></i></a>
-                                </div>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ "CRZ-0" . $producto->id }}</td>
+                        <td>{{ $producto->nombre_producto }}</td>
+                        <td>{{ $producto->marca }}</td>
+                        <td>{{ $producto->stock }}</td>
+                        <td>{{ $producto->precio_producto }}</td>
+                        <td class="action-buttons">
+                            <div class="d-flex justify-content-center">
+                                <a href="{{ route('productos_edit', $producto->id) }}" class="btn btn-warning me-2 edit-btn">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('productos_destroy', $producto->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger ms-2 delete-btn">
+                                        <i class="fas fa-trash-alt text-white"></i>
+                                    </button>
+                                </form>
+                                &nbsp;&nbsp;
+                                <button type="button" class="btn btn-info ms-2 view-product" data-bs-toggle="modal" data-bs-target="#productModal" data-product="{{ json_encode($producto) }}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
                     @endforeach
-                </x-tabla>
+                </tbody>
+            </table>
+            <!-- Enlaces de paginación -->
+            <div class="d-flex justify-content-center">
+                {{ $productos->links() }}
             </div>
         </div>
     </div>
-@endsection
+</div>
 
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
+<!-- Modal Ver Producto -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Detalles del producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="productImage" class="card-img-top mb-5 mb-md-0" width="250" height="450" src="" alt="..." />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="small mb-1">C&oacute;digo de producto: <span id="productCode"></span></div>
+                        <h1 class="display-5 fw-bolder" id="productName"></h1>
+                        <div class="fs-5 mb-4">
+                            <span id="productPrice"></span>
+                        </div>
+                        <p class="lead" id="productDescription"></p>
+                        <p class="lead">Tipo de bebida: <span id="productType"></span></p>
+                        <p class="lead">Marca: <span id="productBrand"></span></p>
+                        <p class="lead">Contenido de la unidad: <span id="productCapacity"></span> ml</p>
+                        <p class="lead">Contenido de alcohol: <span id="productAlcohol"></span>%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
-@endif
+</div>
+
+
+<script src="{{asset('js/fillModalProduct.js')}}"></script>
+
+@endsection
 
 

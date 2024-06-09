@@ -20,7 +20,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="col-form-label" for="descripcion">Descripcion:</label>
-                        <textarea class="form-control form-control-user assistant-hide" placeholder="descripcion" id="descripcion-id" required="true" name="descripcion" title="">{{ old('descripcion') }}</textarea>
+                        <textarea style="resize: none" class="form-control form-control-user assistant-hide" placeholder="descripcion" id="descripcion-id" required="true" name="descripcion" title="">{{ old('descripcion') }}</textarea>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">
@@ -28,7 +28,7 @@
                             <input class="form-control form-control-user" type="number" placeholder="Precio" id="precio-id" required="true" name="precio" value="{{ old('precio') }}" title="">
                         </div>
                         <div class="col-sm-6">
-                            <label class="col-form-label" for="vol">vol%:</label>
+                            <label class="col-form-label" for="vol">Porcentaje de alcholl (%):</label>
                             <input class="form-control form-control-user" type="number" placeholder="vol%" required="true" name="vol" value="{{ old('vol') }}" title="">
                         </div>
                     </div>
@@ -36,7 +36,6 @@
                         <div class="col-sm-6">
                             <label class="col-form-label" for="tipo">Tipo de bebida:</label>
                             <select class="form-control form-control-user" name="tipo" required="true">
-                                <option value="">Selecciona el tipo de bebida</option>
                                 <option value="cerveza">Cerveza</option>
                                 <option value="vodka">Vodka</option>
                                 <option value="whisky">Whisky</option>
@@ -44,7 +43,7 @@
                             </select>
                         </div>
                         <div class="col-sm-6">
-                            <label class="col-form-label" for="capacidad">Capacidad (Lts):</label>
+                            <label class="col-form-label" for="capacidad">Capacidad (ml):</label>
                             <input class="form-control form-control-user" type="number" placeholder="Capacidad" required="true" name="capacidad" value="{{ old('capacidad') }}" title="">
                         </div>
                     </div>
@@ -56,7 +55,6 @@
                         <div class="col-sm-6">
                             <label class="col-form-label" for="proveedor">Proveedor:</label>
                             <select class="form-control form-control-user" name="proveedor" required>
-                                <option value="">Selecciona un proveedor</option>
                                 @foreach ($proveedores as $proveedor)
                                     <option value="{{ $proveedor->id }}">{{ $proveedor->nombre_proveedor }}</option>
                                 @endforeach

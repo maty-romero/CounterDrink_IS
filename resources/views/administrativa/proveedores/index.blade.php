@@ -46,7 +46,7 @@
                                         <form action="{{ route('proveedores_destroy', $proveedor->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button  type="submit" class="btn btn-danger delete-btn ms-2"><i class="fas fa-trash-alt"></i></button>
+                                            <button  type="submit" class="btn btn-danger delete-btn ms-2"><i class="fas fa-trash-alt text-white"></i></button>
                                         </form>
                                     </div>
                                 </td>
