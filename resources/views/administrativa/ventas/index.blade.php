@@ -9,9 +9,11 @@
                 <i class="fas fa-table me-1"></i>
                 Tabla de ventas
             </div>
-            <div>
-                <a class="btn btn-primary" href="{{ route('ventas_create') }}">Registrar nueva venta</a>
-            </div>
+            @if (Auth::user()->rol_usuario == 'administrador' || Auth::user()->rol_usuario == 'abastecedor')
+                <div>
+                    <a class="btn btn-primary" href="{{ route('ventas_create') }}">Registrar nueva venta</a>
+                </div>
+            @endif
         </div>
         <div class="card-body">
             <table class="table text-center">

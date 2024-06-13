@@ -16,9 +16,11 @@
                 <i class="fas fa-table me-1"></i>
                 Tabla de productos
             </div>
-            <div>
-                <a class="btn btn-primary" href="{{ route('productos_create') }}">Agregar nuevo producto</a>
-            </div>
+            @if (Auth::user()->rol_usuario == 'administrador' || Auth::user()->rol_usuario == 'abastecedor')
+                <div>
+                    <a class="btn btn-primary" href="{{ route('productos_create') }}">Agregar nuevo producto</a>
+                </div>   
+            @endif
         </div>
         <div class="card-body">
             <table id="elementsTable" class="table text-center">
@@ -42,17 +44,20 @@
                         <td>{{ $producto->precio_producto }}</td>
                         <td class="action-buttons">
                             <div class="d-flex justify-content-center">
-                                <a href="{{ route('productos_edit', $producto->id) }}" class="btn btn-warning me-2 edit-btn">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form action="{{ route('productos_destroy', $producto->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger ms-2 delete-btn">
-                                        <i class="fas fa-trash-alt text-white"></i>
-                                    </button>
-                                </form>
-                                &nbsp;&nbsp;
+                                @if (Auth::user()->rol_usuario == 'administrador' || Auth::user()->rol_usuario == 'abastecedor')
+                                    <a href="{{ route('productos_edit', $producto->id) }}" class="btn btn-warning me-2 edit-btn">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="{{ route('productos_destroy', $producto->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger ms-2 delete-btn">
+                                            <i class="fas fa-trash-alt text-white"></i>
+                                        </button>
+                                    </form>
+                                    &nbsp;&nbsp;
+                                @endif
+
                                 <button type="button" class="btn btn-info ms-2 view-product" data-bs-toggle="modal" data-bs-target="#productModal" data-product="{{ json_encode($producto) }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
