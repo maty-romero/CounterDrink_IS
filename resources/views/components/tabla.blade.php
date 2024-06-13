@@ -1,4 +1,4 @@
-<table id="datatablesSimple" class="text-center">
+<table id="elementsTable" class="text-center">
     <thead>
         <tr>
             @php

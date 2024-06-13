@@ -23,12 +23,10 @@
                         <i class="fas fa-table me-1"></i>
                         Productos
                     </div>
-                    <div class="input-group w-25 col-auto">
-                        <input type="text" id="searchInput" class="form-control" placeholder="Buscar producto">
-                    </div>
+                    
                 </div>
                 <div class="card-body text-center">
-                    <table class="table">
+                    <table  id="elementsTable" class="table">
                         <thead class="text-center">
                             <tr>
                                 <th>Cod Producto</th>
@@ -183,4 +181,34 @@
 
     <script src="{{asset('js/editarCantVenta.js')}}"></script>
     <script src="{{asset('js/fillModalProduct.js')}}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var table = new simpleDatatables.DataTable("#elementsTable", {
+                labels: {
+                    placeholder: "Buscar...", // El placeholder del input de búsqueda
+                    perPage: "{select} elementos por página", // La etiqueta del dropdown per-page
+                    noRows: "No se encontraron coincidencias con su búsqueda", // Mensaje mostrado cuando no hay registros
+                    info: "", // La etiqueta de información
+                    noResults: "No se encontraron coincidencias con su búsqueda" // Mensaje al no encontrar coincidencias
+                },
+                perPageSelect: false // Oculta el dropdown de per-page
+            });
+    
+            // Manejar la apertura del modal y pasar los datos del producto
+            document.querySelectorAll('.view-product').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var product = JSON.parse(this.getAttribute('data-product'));
+                    document.getElementById('productImage').src = product.imagenURL || '';
+                    document.getElementById('productCode').textContent = "CRZ-0" + product.id;
+                    document.getElementById('productName').textContent = product.nombre_producto;
+                    document.getElementById('productPrice').textContent = product.precio_producto;
+                    document.getElementById('productDescription').textContent = product.descripcion;
+                    document.getElementById('productType').textContent = product.tipo;
+                    document.getElementById('productBrand').textContent = product.marca;
+                    document.getElementById('productCapacity').textContent = product.capacidad_ml;
+                    document.getElementById('productAlcohol').textContent = product.contenido_alcohol;
+                });
+            });
+        });
+    </script>
 @endsection

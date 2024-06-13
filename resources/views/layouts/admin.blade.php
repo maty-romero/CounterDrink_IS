@@ -20,6 +20,12 @@
         <link href="{{asset('assets/css/form-registro.css')}}" rel="stylesheet" /> 
         <link href="{{asset('assets/css/stylesModify.css')}}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    
+        <!-- Enlace de CDN para Simple-DataTables CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
+        <!-- Enlace de CDN para Simple-DataTables JS -->
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" defer></script>
+
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">

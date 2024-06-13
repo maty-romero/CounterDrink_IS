@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table text-center">
+                <table id="elementsTable" class="table text-center">
                     <thead>
                         <tr>
                             <th>Nombre</th>
@@ -61,4 +61,8 @@
             </div>
         </div>
     </div>
+
+{{-- Scripts --}}  
+<script src="{{asset('js/searchInTable.js')}}"></script>
+
 @endsection

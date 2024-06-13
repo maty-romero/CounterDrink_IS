@@ -15,7 +15,7 @@
                     <x-tabla :columna="['Nro Producto','Nombre','Marca','Stock Actual','Stock Ingresado','Accion']">
                         @foreach($productos as $producto)
                         <tr>
-                            <td>{{ $producto['Nro Producto'] }}</td>
+                            <td>{{ "#CRZ-0" . $producto['Nro Producto'] }}</td>
                             <td>{{ $producto['Nombre'] }}</td>
                             <td>{{ $producto['Marca'] }}</td>
                             <td>{{ $producto['Stock'] }}</td>
@@ -61,6 +61,9 @@
                 </div>
             </div>
         </div>
-    </div>       
+    </div>    
+    
+    {{-- Scripts --}}   
     <script src="{{ asset('/assets/js/stock.js') }}"></script>
+    <script src="{{asset('js/searchInTable.js')}}"></script>
 @endsection
