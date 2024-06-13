@@ -36,7 +36,6 @@ class UsuarioController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        // Redireccionar a la página deseada
         return redirect()->route('usuarios_index')->with('success', 'Usuario creado correctamente.');
     }
     
@@ -65,11 +64,9 @@ class UsuarioController extends Controller
     public function update(Request $request, string $id)
     {
         $usuario = User::find($id);
-
         $usuario->name = $request->name;
         $usuario->email = $request->email;
-        $usuario->password = $request->password;
-
+        $usuario->password = $request->contrasena;
         $usuario->save();
 
         return redirect()->route('usuarios_index')->with('success', 'Usuario actualizado correctamente');	
