@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const btnFinalizarVenta = document.getElementById('btnFinalizar');
     const cantidades = document.querySelectorAll('.cantidad');
     const msgInfo = document.getElementById('msgInfo');
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -18,13 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(response => response.json())
             .then(data => {
-                if (data.error) {
+                console.log(data);
+                if (data.error) { 
+                    btnFinalizarVenta.disabled = true;
                     msgInfo.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
                     return;
                 }
                 msgInfo.innerHTML = ''; 
 
                 if (data.success) {
+                    btnFinalizarVenta.disabled = false;
                     const precioTotalElement = document.getElementById(`precio-total-${id}`);
                     const formattedPrecioTotal = formatMoney(data.precio_total);
                     precioTotalElement.innerText = formattedPrecioTotal;

@@ -23,6 +23,8 @@ class VentaController extends Controller
         $detalle = $request->session()->get('detalleVenta');
         $subtotal = Venta::calcularSubtotalDetalleVenta(); 
 
+        //dd($detalle);
+
         $productos = Producto::all();        
         return view('administrativa/ventas/create', [
             'productos' => $productos,
@@ -152,7 +154,7 @@ class VentaController extends Controller
     
         $productoEncontrado = Producto::findOrFail($id); 
         if($productoEncontrado->stock <= 0){
-            session()->flash('error', 'El producto ya está en el detalle de la venta.');
+            session()->flash('error', 'El producto no tiene stock suficiente para ser agregado.');
             return redirect()->route('ventas_create');  
         }
 
@@ -176,10 +178,10 @@ class VentaController extends Controller
         foreach ($detalle as $item) {
             if ($item->elemento->id == $id) {
                 if ($cantidad <= 0) {
-                    return response()->json(['error' => 'La cantidad debe ser mayor que cero.'], 400);
+                    return response()->json(['error' => 'La cantidad debe ser mayor que cero.']);
                 }
                 if ($cantidad > $item->elemento->stock) {
-                    return response()->json(['error' => 'No hay suficiente stock disponible.'], 400);
+                    return response()->json(['error' => 'No hay suficiente stock disponible.']);
                 }
                 $item->unidades = $cantidad;
                 break;
@@ -224,6 +226,23 @@ class VentaController extends Controller
         $request = new Request();
         $request->setLaravelSession(session());
         $detalle = $request->session()->get('detalleVenta'); 
+
+        if($detalle == null){
+            session()->flash('error', 'No hay productos agregados para la venta!');
+            return redirect()->route('ventas_create'); // con parametros session
+        }
+
+        dd($detalle);
+        // verificacion de stock productos 
+        foreach ($detalle as $item) { 
+            $producto = $item->elemento;
+            $unidades = $item->unidades; 
+
+            if(!$producto->hayStockProducto($unidades)){  
+                session()->flash('error', 'No hay stock suficiente para alguno de los productos.');
+                return redirect()->route('ventas_create'); // con parametros session    
+            } 
+        }
 
         if($detalle != null){
             $subtotal = 0; 

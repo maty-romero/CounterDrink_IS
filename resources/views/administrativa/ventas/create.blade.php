@@ -84,7 +84,7 @@
                         <div class="col-auto">
                             <form method="POST" action="{{ route('venta_presencial_finalizar') }}">
                                 @csrf
-                                <button type="submit" class="btn btn-warning btn-outline-dark m-1">Finalizar venta</button>
+                                <button id="btnFinalizar" type="submit" class="btn btn-warning btn-outline-dark m-1">Finalizar venta</button>
                             </form>
                         </div>
                     </div>
