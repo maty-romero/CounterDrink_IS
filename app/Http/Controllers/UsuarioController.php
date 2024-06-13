@@ -32,7 +32,7 @@ class UsuarioController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->rol_usuario = $request->rol_usuario;
-        $user->password = bcrypt($request->password);
+        $user->password = $request->contrasena;
         $user->email = $request->email;
         $user->save();
 
