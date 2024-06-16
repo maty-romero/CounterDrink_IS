@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios_create');
     Route::post('/usuarios/store', [UsuarioController::class, 'store'])->name('usuarios_store');
     Route::delete('/usuarios/destroy/{id}', [UsuarioController::class, 'destroy'])->name('usuarios_destroy');
-    
+
     Route::get('/ventas', [VentaController::class, 'index'])->name('ventas_index');
     Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas_create');
     Route::post('/ventas/store/presencial', [VentaController::class, 'storeVentaPresencial'])->name('venta_presencial_finalizar');

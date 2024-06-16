@@ -45,7 +45,7 @@ class ProductoController extends Controller
         
         $producto->save();
         
-        return redirect()->route('productos_index')->with('success', 'El producto ha sido modificado exitosamente');
+        return redirect()->route('productos_index')->with('success', 'El producto ha sido agregado exitosamente');
     }
 
     public function show(string $id)
@@ -80,13 +80,13 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         
         $producto->nombre_producto = $request->name;
-        $producto->stock = $request->stock;
         $producto->descripcion = $request->descripcion;
         $producto->precio_producto = $request->precio;
         $producto->contenido_alcohol = $request->vol;
         $producto->tipo_bebida = $request->tipo;
         $producto->capacidad_ml = $request->capacidad;
         $producto->marca = $request->marca;
+
         
         if ($request->hasFile('imagen')) {
             $imagen = $request->file('imagen');

@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitButton = document.getElementById('crear-cuenta-btn-id');
 
     submitButton.addEventListener('click', function (event) {
+        console.log('click');
         event.preventDefault();  // Prevenir el envío automático del formulario
+
+        clearErrors();
 
         const nombre = document.querySelector('input[name="name"]').value.trim();
         const stock = document.querySelector('input[name="stock"]').value.trim();
@@ -12,74 +15,114 @@ document.addEventListener('DOMContentLoaded', function () {
         const vol = document.querySelector('input[name="vol"]').value.trim();
         const capacidad = document.querySelector('input[name="capacidad"]').value.trim();
         const marca = document.querySelector('input[name="marca"]').value.trim();
-        const imagen = document.querySelector('input[name="imagen"]').value.trim();
+        const imagenInput = document.querySelector('input[name="imagen"]');
+        const tipo = document.querySelector('select[name="tipo"]').value.trim();
         const isEditing = document.querySelector('input[name="is_editing"]').value;
-       
-        if (isEditing) {
-            validateTipo();
-        } else {
-            validateProveedor();
-            validateTipo();
-        }
+       console.log(isEditing);
+        let isValid = true;
 
-        function validateProveedor() {
+        if(isEditing === true){
             const proveedor = document.querySelector('select[name="proveedor"]').value.trim();
-            if (proveedor === '0') {
-                alert('Debe seleccionar un proveedor.');
-                return;
-            }else {
-               alert(proveedor); 
+            if (!proveedor) {
+                showError('proveedor', 'Debe seleccionar un proveedor.');
+                isValid = false;
             }
         }
-
-        function validateTipo() {
-            const tipo = document.querySelector('select[name="tipo"]').value.trim();
-            if (!tipo) {
-                alert('Debe ingresar un tipo de bebida.');
-                return;
-            }
-            const nombreRegExp = /^[a-zA-Z\s]+$/;
-            if (!nombreRegExp.test(tipo)) {
-                alert('El tipo de bebida debe contener solo letras sin símbolos ni números.');
-                return;
-            }
+            
+        if (!tipo) {
+            showError('tipo', 'Debe seleccionar un tipo de bebida.');
+            isValid = false;
         }
 
-        // Validar que se haya ingresado una imagen solo si no está editando
-        if (!isEditing && !imagen) {
-            alert('Debe seleccionar una imagen.');
-            return;
+        if (!nombre) {
+            showError('name', 'El nombre es obligatorio.');
+            isValid = false;
+        }
+
+        if (!/^\d+$/.test(stock)) {
+            showError('stock', 'Stock debe ser un número entero válido.');
+            isValid = false;
+        }
+        if (!stock) {
+            showError('stock', 'El stock es obligatorio.');
+            isValid = false;
+        } else if (parseInt(stock) <= 0) {
+            showError('stock', 'El stock debe ser mayor a 0.');
+            isValid = false;
+        }
+
+        if (!descripcion) {
+            showError('descripcion', 'La descripción es obligatoria.');
+            isValid = false;
+        }
+
+        if (!/^\d+(\.\d+)?$/.test(precio)) {
+            showError('precio', 'El precio debe ser un número válido.');
+            isValid = false;
+        }
+
+        if (!precio) {
+            showError('precio', 'El precio es obligatorio.');
+            isValid = false;
+        } else if (parseFloat(precio) <= 0) {
+            showError('precio', 'El precio debe ser mayor a 0.');
+            isValid = false;
+        }
+        if (!vol) {
+            showError('vol', 'El porcentaje de alcohol es obligatorio.');
+            isValid = false;
+        } else if (!/^\d+(\.\d+)?$/.test(vol)) {
+            showError('vol', 'El porcentaje de alcohol debe ser un número válido.');
+            isValid = false;
+        } else if (parseFloat(vol) < 0) {
+            showError('vol', 'El porcentaje de alcohol no puede ser negativo.');
+            isValid = false;
+        }
+
+        if (!/^\d+(\.\d+)?$/.test(capacidad)) {
+            showError('capacidad', 'La capacidad debe ser un número válido.');
+            isValid = false;
         }
         
-        // Validar campos vacíos
-        if (!nombre || !stock || !descripcion || !precio || !vol || !capacidad || !marca) {
-            alert('Todos los campos son obligatorios.');
-            return;
+        if (!capacidad) {
+            showError('capacidad', 'La capacidad es obligatoria.');
+            isValid = false;
+        } else if (parseFloat(capacidad) <= 0) {
+            showError('capacidad', 'La capacidad debe ser mayor a 0.');
+            isValid = false;
         }
 
-        // Validar que solo haya números en los campos de número, con un punto decimal opcional pero correctamente colocado
-        const numberRegExp = /^\d+$/;
-        const decimalRegExp = /^\d+(\.\d+)?$/;
-
-        if (!numberRegExp.test(stock) || !decimalRegExp.test(precio) || !decimalRegExp.test(vol) || !decimalRegExp.test(capacidad)) {
-            alert('Stock debe ser un número entero válido. Precio, Vol% y Capacidad deben ser números válidos.');
-            return;
+        if (!marca) {
+            showError('marca', 'La marca es obligatoria.');
+            isValid = false;
+        }
+console.log(imagenInput.files.length);
+        if(isEditing === true){
+            if (imagenInput.files.length == 0) {
+                alert('Debe seleccionar una imagen.');
+                console.log('entro');
+                showError('imagen', 'Debe seleccionar una imagen.');
+                isValid = false;
+            }
         }
 
-        // Validar valores no negativos
-        if (parseFloat(stock) < 0 || parseFloat(precio) < 0 || parseFloat(vol) < 0 || parseFloat(capacidad) < 0) {
-            alert('Los valores de Stock, Precio, Vol% y Capacidad no pueden ser negativos.');
-            return;
-        }
 
-        // Si todas las validaciones pasan, enviar el formulario
-        form.submit();
+        if (isValid) {
+            form.submit();
+        }
     });
 
-    // Alerta de modificación exitosa
-    const urlParams = new URLSearchParams(window.location.search);
-    const successParam = urlParams.get('success');
-    if (successParam && successParam === 'true') {
-        alert('¡Producto modificado correctamente!');
+    function clearErrors() {
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+    }
+
+    function showError(inputName, message) {
+        const input = document.querySelector(`[name="${inputName}"]`);
+        if (input) {
+            const errorMessage = input.closest('div').querySelector('.error-message');
+            if (errorMessage) {
+                errorMessage.textContent = message;
+            }
+        }
     }
 });

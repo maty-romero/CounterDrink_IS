@@ -29,18 +29,21 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'email' => 'required|email|unique:users'
+        ]);
+
         $user = new User();
         $user->name = $request->name;
         $user->rol_usuario = $request->rol_usuario;
-        $user->password = $request->contrasena;
+        $user->password = bcrypt($request->contrasena); 
         $user->email = $request->email;
         $user->save();
 
         return redirect()->route('usuarios_index')->with('success', 'Usuario creado correctamente.');
     }
     
-
-
     /**
      * Display the specified resource.
      */
@@ -64,13 +67,23 @@ class UsuarioController extends Controller
     public function update(Request $request, string $id)
     {
         $usuario = User::find($id);
-        $usuario->name = $request->name;
-        $usuario->email = $request->email;
-        $usuario->password = $request->contrasena;
+
+        // Validar los datos del formulario
+        $request->validate([
+            'email' => 'required|email|unique:users,email,'.$usuario->id,
+        ]);
+
+        // Actualizar los datos del usuario
+        $usuario->name = $request->input('name');
+        $usuario->email = $request->input('email');
+        if ($request->filled('contrasena')) {
+            $usuario->password = bcrypt($request->input('contrasena'));
+        }
         $usuario->save();
 
-        return redirect()->route('usuarios_index')->with('success', 'Usuario actualizado correctamente');	
+        return redirect()->route('usuarios_index')->with('success', 'Usuario actualizado correctamente');
     }
+
 
     /**
      * Remove the specified resource from storage.

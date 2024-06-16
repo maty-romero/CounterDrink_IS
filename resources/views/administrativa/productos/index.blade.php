@@ -41,7 +41,7 @@
                         <td>{{ $producto->nombre_producto }}</td>
                         <td>{{ $producto->marca }}</td>
                         <td>{{ $producto->stock }}</td>
-                        <td>{{ $producto->precio_producto }}</td>
+                        <td><span>@money($producto->precio_producto)</span></td>
                         <td class="action-buttons">
                             <div class="d-flex justify-content-center">
                                 @if (Auth::user()->rol_usuario == 'administrador' || Auth::user()->rol_usuario == 'abastecedor')

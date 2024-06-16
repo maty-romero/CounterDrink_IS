@@ -19,7 +19,7 @@
                             <td>{{ $producto['Nombre'] }}</td>
                             <td>{{ $producto['Marca'] }}</td>
                             <td>{{ $producto['Stock'] }}</td>
-                            <td><input type="text" name="stock_ingresado[]" value=""></td>
+                            <td><input type="number" name="stock_ingresado[]" value=""></td>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-success" onclick="agregarCambio(this)"><i class="fas fa-check"></i></button>

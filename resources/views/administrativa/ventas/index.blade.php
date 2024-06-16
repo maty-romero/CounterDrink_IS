@@ -16,38 +16,42 @@
             @endif
         </div>
         <div class="card-body">
-            <table class="table text-center">
-                <thead>
-                    <tr>
-                        <th>Nro Venta</th>
-                        <th>Nro pago</th>
-                        <th>Fecha Venta</th>
-                        <th>Monto Final</th>
-                        <th>Obtener comprobante</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($ventas as $venta)
-                    <tr>
-                        <td>{{ $venta->id }}</td>
-                        <td>{{ $venta->nro_pago }}</td>
-                        <td>{{ date('d-m-Y', strtotime($venta->fecha_venta)) }}</td>
-                        <td>@money($venta->monto_final_venta)</td>
-                        <td class="action-buttons">
-                            <div class="d-flex justify-content-center">
-                                <a href="{{ route('cliente_comprobante_venta', $venta->id) }}" target="_blank" class="btn btn-warning ms-2 edit-btn">
-                                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <!-- Enlaces de paginación -->
-            <div class="d-flex justify-content-center">
-                {{ $ventas->links() }}
-            </div>
+            @if (isset($ventas))
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>Nro Venta</th>
+                            <th>Nro pago</th>
+                            <th>Fecha Venta</th>
+                            <th>Monto Final</th>
+                            <th>Obtener comprobante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($ventas as $venta)
+                        <tr>
+                            <td>{{ $venta->id }}</td>
+                            <td>{{ $venta->nro_pago }}</td>
+                            <td>{{ date('d-m-Y', strtotime($venta->fecha_venta)) }}</td>
+                            <td>@money($venta->monto_final_venta)</td>
+                            <td class="action-buttons">
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ route('cliente_comprobante_venta', $venta->id) }}" target="_blank" class="btn btn-warning ms-2 edit-btn">
+                                        <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <!-- Enlaces de paginación -->
+                <div class="d-flex justify-content-center">
+                    {{ $ventas->links() }}
+                </div>
+            @else
+                <p>No hay ventas disponibles.</p>
+            @endif
         </div>
     </div>
 </div>
