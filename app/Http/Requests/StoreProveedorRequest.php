@@ -22,7 +22,7 @@ class StoreProveedorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'regex:/^[^\d]+$/i', 'max:255'],
+            'name' => ['required', 'string', 'regex:/^[^\d]+$/i', 'max:50'],
             'cuit' => 'required|string|max:11',
             'telefono' => 'required|string|max:20',
             'email' => 'required|email|max:255',
