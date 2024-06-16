@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitButton = document.getElementById('crear-cuenta-btn-id');
 
     submitButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Evitar el envío automático del formulario
+        event.preventDefault(); 
         clearErrorMessages();
 
         const nombreValue = nombre ? nombre.value.trim() : '';
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (nombreValue === '') {
             showError(nombre, 'El nombre es obligatorio.');
             isValid = false;
-        } else if (!/^[A-Za-z\s]+$/.test(nombreValue)) { // Permite letras y espacios
+        } else if (!/^[A-Za-z\s]+$/.test(nombreValue)) {
             showError(nombre, 'El nombre solo puede contener letras y espacios.');
             isValid = false;
         }
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (isValid) {
             console.log('Formulario válido.');
-            form.submit(); // Enviar el formulario si todas las validaciones son correctas
+            form.submit(); 
         }
     });
 

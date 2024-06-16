@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const imagenInput = document.querySelector('input[name="imagen"]');
         const tipo = document.querySelector('select[name="tipo"]').value.trim();
         const isEditing = document.querySelector('input[name="is_editing"]').value;
-       console.log(isEditing);
+
         let isValid = true;
 
-        if(isEditing === true){
+        if(isEditing === 'true'){
             const proveedor = document.querySelector('select[name="proveedor"]').value.trim();
             if (!proveedor) {
                 showError('proveedor', 'Debe seleccionar un proveedor.');
@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
             showError('marca', 'La marca es obligatoria.');
             isValid = false;
         }
-console.log(imagenInput.files.length);
-        if(isEditing === true){
+
+        if(isEditing === 'true'){
             if (imagenInput.files.length == 0) {
                 alert('Debe seleccionar una imagen.');
                 console.log('entro');

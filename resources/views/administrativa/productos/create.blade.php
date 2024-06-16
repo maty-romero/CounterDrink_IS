@@ -2,7 +2,9 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Agregar producto</h1>
+        <div class="title-container">
+            <h1 class="mt-4" style="text-align: center;">Agregar producto</h1>
+        </div>
         <div class="form-container">
             <div class="form-card">
                 <form id="formProducto" class="user" method="POST" action="{{ route('productos_store') }}" enctype="multipart/form-data">

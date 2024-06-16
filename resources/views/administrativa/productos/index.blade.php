@@ -48,13 +48,11 @@
                                     <a href="{{ route('productos_edit', $producto->id) }}" class="btn btn-warning me-2 edit-btn">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('productos_destroy', $producto->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger ms-2 delete-btn">
+                                    <button type="button" class="btn btn-danger ms-2 delete-btn"
+                                            data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                            data-url="{{ route('productos_destroy', $producto->id) }}">
                                             <i class="fas fa-trash-alt text-white"></i>
-                                        </button>
-                                    </form>
+                                    </button>
                                     &nbsp;&nbsp;
                                 @endif
 

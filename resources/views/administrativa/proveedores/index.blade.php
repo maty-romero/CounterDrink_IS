@@ -43,11 +43,11 @@
                                         <a href="{{ route('proveedores_edit', $proveedor->id) }}" class="btn btn-warning edit-btn me-2">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('proveedores_destroy', $proveedor->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button  type="submit" class="btn btn-danger delete-btn ms-2"><i class="fas fa-trash-alt text-white"></i></button>
-                                        </form>
+                                        <button type="button" class="btn btn-danger ms-2 delete-btn"
+                                            data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                            data-url="{{ route('proveedores_destroy', $proveedor->id) }}">
+                                            <i class="fas fa-trash-alt text-white"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>

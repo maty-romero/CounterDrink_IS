@@ -1,10 +1,15 @@
 
+.title-container {
+    margin-bottom: 50px; /* Ajusta el valor según sea necesario */
+    
+}
+
 .form-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 70px;
-    height: 80vh;
+    height: auto;
+    min-height: 70vh;
     padding: 20px;
 }
 .form-card {

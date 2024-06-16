@@ -42,14 +42,11 @@
                                             class="btn btn-warning ms-2 edit-btn">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('usuarios_destroy', $usuario->id) }}" method="POST"
-                                            style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger ms-2 delete-btn">
-                                                <i class="fas fa-trash-alt text-white"></i>
-                                            </button>
-                                        </form>
+                                        <button type="button" class="btn btn-danger ms-2 delete-btn"
+                                            data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                            data-url="{{ route('usuarios_destroy', $usuario->id) }}">
+                                            <i class="fas fa-trash-alt text-white"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -64,7 +61,6 @@
         </div>
     </div>
 
-{{-- Scripts --}}  
-<script src="{{asset('js/searchInTable.js')}}"></script>
-
+    {{-- Scripts --}}  
+    <script src="{{asset('js/searchInTable.js')}}"></script>
 @endsection
