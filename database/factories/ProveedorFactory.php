@@ -17,7 +17,10 @@ class ProveedorFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nombre_proveedor' => $this->faker->company,
+            'cuit' => $this->faker->unique()->regexify('[0-9]{2}-[0-9]{8}-[0-9]{1}'),
+            'nro_telefono' => $this->faker->phoneNumber,
+            'email' => $this->faker->unique()->safeEmail,
         ];
     }
 }

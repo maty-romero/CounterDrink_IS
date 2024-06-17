@@ -66,7 +66,7 @@ class VentaController extends Controller
 
     public function storeVentaOnline(Request $request)
     {
-        try{
+        try {
             $validator = Validator::make($request->all(), [
                 'nombre' => 'required|string|max:15',
                 'apellido' => 'required|string|max:15',
@@ -75,17 +75,14 @@ class VentaController extends Controller
                 'nombre.required' => 'El campo Nombre es obligatorio.',
                 'nombre.string' => 'El campo Nombre debe ser texto.',
                 'nombre.max' => 'El campo Nombre no puede tener más de 15 caracteres.',
-                
                 'apellido.required' => 'El campo Apellido es obligatorio.',
                 'apellido.string' => 'El campo Apellido debe ser texto.',
                 'apellido.max' => 'El campo Apellido no puede tener más de 15 caracteres.',
-                
                 'dni.required' => 'El campo DNI es obligatorio.',
                 'dni.digits' => 'El campo DNI debe tener exactamente 8 dígitos.',
             ]);
             $validator->validate();
 
-            // se envia en la request pero se usa siempre este para fines de simplicidad
             $metodoPago = 'mercadopago';   
 
             if (!Venta::hayStockCarrito()) {
@@ -99,22 +96,23 @@ class VentaController extends Controller
             }
 
             $idVenta = Venta::finalizarVenta();
-            session()->flash('success', 'Su compra se ha realizada con éxito.');
-            session()->flash('nroComprobante', $idVenta); // nro comprobante para generacion pdf 
+            session()->flash('success', 'Su compra se ha realizado con éxito.');
+            session()->flash('nroComprobante', $idVenta); 
             
-            $cliente = new stdClass();  // datos del cliente para el comprobante 
+            $cliente = new stdClass();  
             $cliente->nombre_cliente = $request->input('nombre') . " " . $request->input('apellido');
             $cliente->dni = $request->input('dni');
             session(['cliente' => $cliente]);
 
-            return to_route('home_shop');
+            return redirect()->route('home_shop');
 
-        }catch (ValidationException $e) {
-            $msj = 'Error al realizar la compra. Los datos de retiro está incompleta o no es válida.';
-            session()->flash('msj', $msj); 
-            return redirect()->back()->withInput()->withErrors($e->validator->errors());
+        } catch (ValidationException $e) {
+            $msj = 'Error al realizar la compra. Los datos de retiro están incompletos o no son válidos.';
+            return redirect()->back()->withInput()->with('msj', $msj)->withErrors($e->validator->errors())->setStatusCode(400);
         }
     }
+
+
 
     // verifica la existencia de ventas en un periodo de fechas
     public function validarVentas(Request $request)
