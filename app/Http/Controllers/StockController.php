@@ -57,22 +57,23 @@ class StockController extends Controller
     }
 
     public function update(Request $request)
-{
-    $cambios = json_decode($request->input('cambios'), true);
+    {
+        $cambios = json_decode($request->input('cambios'), true);
 
-    foreach ($cambios as $cambio) {
-        $producto = Producto::find($cambio['nroProducto']);
-        if ($producto) {
-            if ($cambio['stockAlterado'] > 0) {
-                $producto->stock += $cambio['stockAlterado'];
-            } else {
-                $producto->stock -= abs($cambio['stockAlterado']);
+        foreach ($cambios as $cambio) {
+            $producto = Producto::find($cambio['nroProducto']);
+            if ($producto) {
+                if ($cambio['stockAlterado'] > 0) {
+                    $producto->stock += $cambio['stockAlterado'];
+                } else {
+                    $producto->stock -= abs($cambio['stockAlterado']);
+                }
+                $producto->save();
             }
-            $producto->save();
         }
+        $productos = Producto::all();
+        return redirect()->route('stock_index', compact('productos'))->with('success', 'Stock actualizado con éxito.');
     }
-    return redirect()->route('stock_index')->with('success', 'Stock actualizado con éxito.');
-}
 
 
     /**

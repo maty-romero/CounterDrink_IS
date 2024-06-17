@@ -4,6 +4,12 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Ingresar Stock</h1>
         
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div id="msgError" class="alert alert-danger d-none"></div>
         
         <div class="row">
@@ -18,7 +24,7 @@
                     <x-tabla :columna="['Nro Producto','Nombre','Marca','Stock Actual','Stock Ingresado','Accion']">
                         @foreach($productos as $producto)
                         <tr>
-                            <td>{{ "#CRZ-0" . $producto['Nro Producto'] }}</td>
+                            <td>{{ $producto['Nro Producto'] }}</td>
                             <td>{{ $producto['Nombre'] }}</td>
                             <td>{{ $producto['Marca'] }}</td>
                             <td>{{ $producto['Stock'] }}</td>
