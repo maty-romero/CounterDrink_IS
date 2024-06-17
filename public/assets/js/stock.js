@@ -1,20 +1,34 @@
 var cambiosRealizados = [];
 
+function mostrarError(mensaje) {
+    var msgErrorDiv = document.getElementById('msgError');
+    msgErrorDiv.innerText = mensaje;
+    msgErrorDiv.classList.remove('d-none');
+}
+
 function agregarCambio(button) {
     var row = button.parentNode.parentNode.parentNode;
     var nroProducto = row.cells[0].innerText;
     var stockActual = parseInt(row.cells[3].innerText, 10);
     var stockIngresado = row.cells[4].firstChild.value;
 
+    // Validar si el stock ingresado es 0
+    if (stockIngresado == 0) {
+        mostrarError('El stock ingresado no puede ser 0.');
+        return;
+    }
+
+    // Validar si el stock ingresado es un número entero
     if (!/^-?[1-9]\d*$/.test(stockIngresado)) {
-        alert('Por favor ingrese un número entero para disminuir o aumentar el stock. Ejemplo: 10, -5, etc.');
+        mostrarError('Por favor ingrese un número entero para disminuir o aumentar el stock. Ejemplo: 10, -5, etc.');
         return;
     }
 
     stockIngresado = parseInt(stockIngresado, 10);
 
+    // Validar si la suma del stock actual y el ingresado es menor que 0
     if (stockActual + stockIngresado < 0) {
-        alert('No se puede disminuir el stock por debajo de cero.');
+        mostrarError('No se puede disminuir el stock por debajo de cero.');
         return;
     }
 
@@ -41,6 +55,17 @@ function agregarCambio(button) {
         var productoToDelete = rowToDelete.getAttribute('data-producto');
         cambiosRealizados = cambiosRealizados.filter(cambio => cambio.nroProducto !== productoToDelete);
         rowToDelete.parentNode.removeChild(rowToDelete);
+
+        // Habilitar el botón de check correspondiente
+        var tableRows = document.querySelectorAll('table tr');
+        tableRows.forEach(function(tr) {
+            if (tr.cells[0].innerText === productoToDelete) {
+                var checkBtn = tr.querySelector('.btn-success');
+                if (checkBtn) {
+                    checkBtn.disabled = false;
+                }
+            }
+        });
     });
 
     // Agregar el cambio al arreglo global
@@ -50,19 +75,20 @@ function agregarCambio(button) {
     });
 
     row.cells[4].firstChild.value = '';
+    button.disabled = true; // Deshabilitar el botón de check
+    document.getElementById('msgError').classList.add('d-none'); // Ocultar el mensaje de error si se añade un cambio correctamente
 }
 
 function enviarCambios() {
     if (cambiosRealizados.length === 0) {
-        alert('No hay datos para modificar.');
+        mostrarError('No hay datos para modificar.');
         return;
     }
     document.getElementById('inputCambios').value = JSON.stringify(cambiosRealizados);
 
-     document.getElementById('formConfirmar').submit();
+    document.getElementById('formConfirmar').submit();
 }
 
 document.getElementById('confirmarBtn').addEventListener('click', function() {
     enviarCambios();
 });
-

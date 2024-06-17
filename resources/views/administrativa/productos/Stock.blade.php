@@ -3,6 +3,9 @@
 @section('content')
     <div class="container-fluid px-4">
         <h1 class="mt-4" style="text-align: center; margin-bottom: 50px;">Ingresar Stock</h1>
+        
+        <div id="msgError" class="alert alert-danger d-none"></div>
+        
         <div class="row">
             <div class="col-md-8">
                 <div class="card mb-4">
@@ -25,7 +28,6 @@
                                     <button class="btn btn-success" onclick="agregarCambio(this)"><i class="fas fa-check"></i></button>
                                 </div>
                             </td>
-                        </tr>
                         </tr>
                         @endforeach
                     </x-tabla>
