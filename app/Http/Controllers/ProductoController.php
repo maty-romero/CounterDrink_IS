@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use App\Models\Venta; 
 use App\Models\Proveedor;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 class ProductoController extends Controller
 {
     public function index()
@@ -22,30 +23,67 @@ class ProductoController extends Controller
         return view('administrativa.productos.create',compact('proveedores'));
     }
 
+   
     public function store(Request $request)
-    {   
-        $producto = new Producto();
-        $producto->nombre_producto = $request->name;
-        $producto->stock = $request->stock;
-        $producto->descripcion = $request->descripcion;
-        $producto->precio_producto = $request->precio;
-        $producto->contenido_alcohol = $request->vol;
-        $producto->tipo_bebida = $request->tipo;
-        $producto->capacidad_ml = $request->capacidad;
-        $producto->marca = $request->marca;
-        $producto->id_proveedor = $request->proveedor;
+    {
+        $result = [];
+    
+        try {
+            // Validación de campos
+            $request->validate([
+                'name' => 'required|string|max:100',
+                'stock' => 'required|integer|min:0',
+                'descripcion' => 'nullable|string|max:500',
+                'precio' => 'required|numeric|min:0',
+                'vol' => 'required|numeric|min:0',
+                'tipo' => ['required', Rule::in(['cerveza', 'vino', 'whisky', 'vodka'])],
+                'capacidad' => 'required|numeric|min:0',
+                'marca' => 'required|string|max:100',
+                'proveedor' => 'required|integer|exists:proveedores,id',
+                'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+    
+            // Si todas las validaciones pasan, proceder con el almacenamiento del producto
+            $producto = new Producto();
+            $producto->nombre_producto = $request->name;
+            $producto->stock = $request->stock;
+            $producto->descripcion = $request->descripcion;
+            $producto->precio_producto = $request->precio;
+            $producto->contenido_alcohol = $request->vol;
+            $producto->tipo_bebida = $request->tipo;
+            $producto->capacidad_ml = $request->capacidad;
+            $producto->marca = $request->marca;
+            $producto->id_proveedor = $request->proveedor;
+    
+            // Guardar la imagen si está presente
+            if ($request->hasFile('imagen')) {
+                $imagen = $request->file('imagen');
+                $imagenURL = 'img/' . $imagen->getClientOriginalName();
+                $imagen->move(public_path('img'), $imagen->getClientOriginalName());
+                $producto->imagenURL = $imagenURL;
+            }
+    
+            $producto->save();
+    
+            $result['message'] = 'El producto ha sido registrado con éxito';
+            $result['http_status'] = 200;
 
+            if (app()->environment('testing')) {
+                return response()->json($result, $result['http_status']);
+            }else{
+                return redirect()->route('productos_index')->with('success', $result['message']);
+            }
 
-        if ($request->hasFile('imagen')) {
-            $imagen = $request->file('imagen');
-            $imagenURL = 'img/' . $imagen->getClientOriginalName();
-            $imagen->move(public_path('img'), $imagen->getClientOriginalName());
-            $producto->imagenURL = $imagenURL;
-        }
-        
-        $producto->save();
-        
-        return redirect()->route('productos_index')->with('success', 'El producto ha sido agregado exitosamente');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Captura de excepciones de validación Laravel
+            $errors = $e->errors();
+            $firstError = reset($errors)[0];
+    
+            $result['message'] = 'Error de validación: ' . $firstError;
+            $result['http_status'] = 400;
+        } 
+    
+        return response()->json(['message' => $result['message']], $result['http_status']);
     }
 
     public function show(string $id)
