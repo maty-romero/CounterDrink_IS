@@ -230,7 +230,7 @@ class VentaController extends Controller
             return redirect()->route('ventas_create'); // con parametros session
         }
 
-        dd($detalle);
+        //dd($detalle);
         // verificacion de stock productos 
         foreach ($detalle as $item) { 
             $producto = $item->elemento;
