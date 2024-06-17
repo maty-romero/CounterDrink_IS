@@ -11,7 +11,7 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{{asset('assets/css/stylesClientSide.css')}}" rel="stylesheet" />
+        <link href="{{ asset('assets/css/stylesClientSide.css') }}" rel="stylesheet" />
     </head>
     <body>
         <!-- Navigation-->
@@ -29,49 +29,36 @@
                           <div class="p-5">
                             <div class="d-flex justify-content-between align-items-center mb-5">
                               <h1 class="fw-bold mb-0 text-black">Carrito de compras</h1>
-                              <a class="btn btn-dark btn-block btn-lg" href="{{route('home_shop')}}">Volver a la tienda</a>
+                              <a class="btn btn-dark btn-block btn-lg" href="{{ route('home_shop') }}">Volver a la tienda</a>
                             </div>
                             <div class="container mx-auto flex flex-wrap mb-1 overflow-hidden">
                               <h4 class='w-full bg-warning text-black font-bold text-2xl text-center p-5'>
-                                  El carrito de compras est&aacute; vac&iacute;o
+                                  El carrito de compras está vacío
                               </h4>
                             </div>
                           </div>
                         
-                          
-                            
                         @else
                           <div class="col-lg-8">
                             <div class="p-5">
                               <div class="d-flex justify-content-between align-items-center mb-5">
                                 <h1 class="fw-bold mb-0 text-black">Carrito de compras</h1>
-                                <a class="btn btn-dark btn-block btn-lg" href="{{route('home_shop')}}">Volver a la tienda</a>
+                                <a class="btn btn-dark btn-block btn-lg" href="{{ route('home_shop') }}">Volver a la tienda</a>
                               </div>
 
-                            {{-- 
-                             @if(session()->has('carrito'))
-                                <p>Carrito</p>
-                                <pre>{{ json_encode(session('carrito'), JSON_PRETTY_PRINT) }}</pre>
-                                
-                                <p>Subtotal: {{ $subtotal }} </p>
-                            @else
-                                <p>No hay productos en el carrito.</p>
-                            @endif
-                            --}}  
-
-                            @if(session()->has('msj'))
+                              @if(session()->has('msj'))
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     {{ session('msj') }}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
-                            @endif
+                              @endif
                             
-                            @if(session()->has('success'))
+                              @if(session()->has('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('success') }}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
-                            @endif
+                              @endif
 
                               <hr class="my-4">
             
@@ -95,7 +82,7 @@
                               <hr class="my-4">
             
                               <div class="d-flex justify-content-between mb-4">
-                                <h5>{{count($carrito)}} Items agregados al carrito</h5>
+                                <h5>{{ count($carrito) }} Items agregados al carrito</h5>
                               </div>
                               <div class="d-flex justify-content-between mb-5">
                                 <h5 class="text-uppercase">Monto final:</h5>
@@ -111,6 +98,7 @@
                                         
                                         <label class="form-label" for="idNombreCliente">Nombre</label>
                                         <input type="text" id="idNombreCliente" name="nombre" class="form-control form-control-lg" value="{{ old('nombre') }}" required/>
+                                        <div id="errorNombre" class="text-danger"></div>
                                         @error('nombre')
                                             <small style="color: red">{{ $message }}</small>
                                             <br>
@@ -118,6 +106,7 @@
 
                                         <label class="form-label" for="idApellidoCliente">Apellido</label>
                                         <input type="tel" id="idApellidoCliente" name="apellido" class="form-control form-control-lg" value="{{ old('apellido') }}" required/>
+                                        <div id="errorApellido" class="text-danger"></div>
                                         @error('apellido')
                                             <small style="color: red">{{ $message }}</small>
                                             <br>
@@ -125,6 +114,7 @@
 
                                         <label class="form-label" for="idDniCliente">DNI</label>
                                         <input type="number" id="idDniCliente" name="dni" class="form-control form-control-lg" value="{{ old('dni') }}" required/>
+                                        <div id="errorDni" class="text-danger"></div>
                                         @error('dni')
                                             <small style="color: red">{{ $message }}</small>
                                         @enderror  
@@ -133,7 +123,7 @@
                             
                                 <hr class="my-4">
                             
-                                <button type="button" class="btn btn-dark btn-block btn-lg" data-bs-toggle="modal" data-bs-target="#paymentModal">Pagar pedido</button>
+                                <button type="button" class="btn btn-dark btn-block btn-lg" id="pagarPedidoBtn">Pagar pedido</button>
                               </form>
                             
                             
@@ -179,23 +169,54 @@
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              document.getElementById('pagarPedidoBtn').addEventListener('click', function () {
+                  // Limpiar mensajes de error previos
+                  document.getElementById('errorNombre').innerText = "";
+                  document.getElementById('errorApellido').innerText = "";
+                  document.getElementById('errorDni').innerText = "";
+
+                  // Validar campos del formulario
+                  var nombre = document.getElementById('idNombreCliente').value;
+                  var apellido = document.getElementById('idApellidoCliente').value;
+                  var dni = document.getElementById('idDniCliente').value;
+
+                  var isValid = true;
+
+                  if (!nombre) {
+                      isValid = false;
+                      document.getElementById('errorNombre').innerText = "El campo Nombre es obligatorio.";
+                  }
+                  if (!apellido) {
+                      isValid = false;
+                      document.getElementById('errorApellido').innerText = "El campo Apellido es obligatorio.";
+                  }
+                  if (!dni || dni.length != 8) {
+                      isValid = false;
+                      document.getElementById('errorDni').innerText = "El campo DNI es obligatorio y debe tener 8 dígitos.";
+                  }
+
+                  if (isValid) {
+                      var paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                      paymentModal.show();
+                  }
+              });
+
+              document.getElementById('confirmPayment').addEventListener('click', function () {
+                  var medioPago = document.getElementById('medioPago').value;
+                  var inputMedioPago = document.createElement('input');
+                  inputMedioPago.type = 'hidden';
+                  inputMedioPago.name = 'medio_pago';
+                  inputMedioPago.value = medioPago;
+
+                  var ventaFormDiv = document.getElementById('formDivFields');
+                  ventaFormDiv.appendChild(inputMedioPago);
+
+                  var ventaForm = document.getElementById('infoClienteForm');
+                  ventaForm.submit();
+              });
+          });
+        </script>
     </body>
 </html>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('confirmPayment').addEventListener('click', function () {
-          var medioPago = document.getElementById('medioPago').value;
-          var inputMedioPago = document.createElement('input');
-          inputMedioPago.type = 'hidden';
-          inputMedioPago.name = 'medio_pago';
-          inputMedioPago.value = medioPago;
-
-          var ventaFormDiv = document.getElementById('formDivFields');
-          ventaFormDiv.appendChild(inputMedioPago);
-
-          var ventaForm = document.getElementById('infoClienteForm');
-          ventaForm.submit();
-      });
-  });
-</script>
