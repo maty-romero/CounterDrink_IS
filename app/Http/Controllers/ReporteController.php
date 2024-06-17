@@ -34,18 +34,18 @@ class ReporteController extends Controller
                 "SubReportPath" => $path_subreport
             ],
             'db_connection' => [
-                //datos conexión base
-                'driver' => 'mysql',
-                'host' => '127.0.0.1',
-                'port' => '3306',
-                'database' => 'drinkcounter',
-                'username' => 'root',
-                'password' => '1234', 
+                'driver' => env('DB_CONNECTION', 'mysql'),
+                'host' => env('DB_HOST', '127.0.0.1'),
+                'port' => env('DB_PORT', '3306'),
+                'database' => env('DB_DATABASE', 'counterdrink'),
+                'username' => env('DB_USERNAME', 'root'),
+                'password' => env('DB_PASSWORD', ''), // no contraseña usuario root por default
 
             ],
         ];
 
         // existe cliente en caso de compra online
+        //dump(session()->has('cliente')); 
         if (session()->has('cliente')) {
             $input = base_path() . '\database\reportes\FacturaCliente.jrxml';
             $cliente = session()->get('cliente');
@@ -56,7 +56,7 @@ class ReporteController extends Controller
             $options['params']['dni'] = $dni;
             $output = base_path() . '\database\reportes\output\FacturaCliente';
 
-            session()->forget('cliente'); // limpio session
+            //session()->forget('cliente'); // limpio session
 
         } else {
             $input = base_path() . '\database\reportes\FacturaVenta.jrxml';
@@ -93,13 +93,12 @@ class ReporteController extends Controller
                     'Fecha_fin' => strval($fechaHasta),
                 ],
                 'db_connection' => [
-                    //datos conexión base
-                    'driver' => 'mysql',
-                    'host' => '127.0.0.1',
-                    'port' => '3306',
-                    'database' => 'drinkcounter',
-                    'username' => 'root',
-                    'password' => '1234', 
+                    'driver' => env('DB_CONNECTION', 'mysql'),
+                    'host' => env('DB_HOST', '127.0.0.1'),
+                    'port' => env('DB_PORT', '3306'),
+                    'database' => env('DB_DATABASE', 'counterdrink'),
+                    'username' => env('DB_USERNAME', 'root'),
+                    'password' => env('DB_PASSWORD', ''), // no contraseña usuario root por default
 
                 ],
             ];
@@ -124,13 +123,12 @@ class ReporteController extends Controller
                     'Fecha_fin' => strval($fechaHasta),
                 ],
                 'db_connection' => [
-                    //datos conexión base
-                    'driver' => 'mysql',
-                    'host' => '127.0.0.1',
-                    'port' => '3306',
-                    'database' => 'drinkcounter',
-                    'username' => 'root',
-                    'password' => '1234', 
+                    'driver' => env('DB_CONNECTION', 'mysql'),
+                    'host' => env('DB_HOST', '127.0.0.1'),
+                    'port' => env('DB_PORT', '3306'),
+                    'database' => env('DB_DATABASE', 'counterdrink'),
+                    'username' => env('DB_USERNAME', 'root'),
+                    'password' => env('DB_PASSWORD', ''), // no contraseña usuario root por default
 
                 ],
             ];
