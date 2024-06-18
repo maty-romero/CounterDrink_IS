@@ -33,7 +33,7 @@ class ProductoController extends Controller
             $request->validate([
                 'name' => 'required|string|max:100',
                 'stock' => 'required|integer|min:0',
-                'descripcion' => 'nullable|string|max:500',
+                'descripcion' => 'string|max:500',
                 'precio' => 'required|numeric|min:0',
                 'vol' => 'required|numeric|min:0',
                 'tipo' => ['required', Rule::in(['cerveza', 'vino', 'whisky', 'vodka'])],

@@ -99,8 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if(isEditing === 'true'){
             if (imagenInput.files.length == 0) {
-                alert('Debe seleccionar una imagen.');
-                console.log('entro');
                 showError('imagen', 'Debe seleccionar una imagen.');
                 isValid = false;
             }

@@ -19,7 +19,6 @@ class ProductoTest extends TestCase
 
      public function test_registro_producto_con_proveedor_inexistente(): void
     {
-        // Simular el almacenamiento de archivos en disco 'public'
         Storage::fake('public');
         $user = User::factory()->create();
 
@@ -36,7 +35,6 @@ class ProductoTest extends TestCase
             'imagen' => UploadedFile::fake()->create('vino.jpeg')
         ];
 
-        // Hacer una petición POST a la ruta de registro de productos
         $response = $this->actingAs($user)->postJson('/productos/store', $producto);
         
         // Asegurarse de que la petición falló debido a la existencia del proveedor
@@ -96,8 +94,8 @@ class ProductoTest extends TestCase
             
             // Datos del producto con datos inválidos
             $productoInvalido = [
-                'name' => '', // Nombre vacío
-                'stock' => -10, // Stock negativo
+                'name' => 'mauro', // Nombre vacío
+                'stock' => 10, // Stock negativo
                 'descripcion' => '', // Descripción vacía
                 'precio' => -50.00, // Precio negativo
                 'vol' => -5.0, // Volumen negativo
@@ -109,15 +107,14 @@ class ProductoTest extends TestCase
             ];
 
             $response = $this->actingAs($user)->post('/productos/store', $productoInvalido);
+            dd($response->getContent());
 
-            // Asegurarse de que la petición falló debido a errores de validación
             $response->assertStatus(400);
         }
 
         
         public function test_registro_producto_duplicado(): void
         {
-            // Simular el almacenamiento de archivos en disco 'public'
             Storage::fake('public');
             $user = User::factory()->create();
                     
@@ -127,17 +124,15 @@ class ProductoTest extends TestCase
                 'descripcion' => 'Cerveza con sabor único',
                 'precio' => 50.00,
                 'vol' => 5.0,
-                'tipo' => 'cerveza', // Ajustado según el enum en la base de datos
+                'tipo' => 'cerveza', 
                 'capacidad' => 500,
                 'marca' => 'Artesanal',
                 'proveedor' => 1,
-                'imagen' => UploadedFile::fake()->create('vino.jpeg')  // Simula que se envía un archivo sin contenido
+                'imagen' => UploadedFile::fake()->create('vino.jpeg') 
             ];
         
-            // Hacer una petición POST a la ruta de registro de productos
             $response = $this->actingAs($user)->postJson('/productos/store', $producto);
             
-            // Asegurarse de que la petición fue exitosa
             $response->assertStatus(400);
         
         }

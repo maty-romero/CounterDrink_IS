@@ -38,8 +38,9 @@ class ReporteController extends Controller
                 'driver' => 'mysql',
                 'host' => '127.0.0.1',
                 'port' => '3306',
-                'database' => 'counterdrink',
-                'username' => 'root'
+                'database' => 'drinkcounter',
+                'username' => 'root',
+                'password' => '1234'
             ],
         ];
 
@@ -95,9 +96,9 @@ class ReporteController extends Controller
                     'driver' => 'mysql',
                     'host' => '127.0.0.1',
                     'port' => '3306',
-                    'database' => 'counterdrink',
+                    'database' => 'drinkcounter',
                     'username' => 'root',
-
+                    'password' => '1234'
                 ],
             ];
             
@@ -125,9 +126,9 @@ class ReporteController extends Controller
                     'driver' => 'mysql',
                     'host' => '127.0.0.1',
                     'port' => '3306',
-                    'database' => 'counterdrink',
+                    'database' => 'drinkcounter',
                     'username' => 'root',
-
+                    'password' => '1234'
                 ],
             ];
             

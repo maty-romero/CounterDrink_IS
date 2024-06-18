@@ -203,7 +203,7 @@
                     document.getElementById('productName').textContent = product.nombre_producto;
                     document.getElementById('productPrice').textContent = product.precio_producto;
                     document.getElementById('productDescription').textContent = product.descripcion;
-                    document.getElementById('productType').textContent = product.tipo;
+                    document.getElementById('productType').textContent = product.tipo_bebida;
                     document.getElementById('productBrand').textContent = product.marca;
                     document.getElementById('productCapacity').textContent = product.capacidad_ml;
                     document.getElementById('productAlcohol').textContent = product.contenido_alcohol;

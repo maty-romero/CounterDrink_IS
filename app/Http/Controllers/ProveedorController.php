@@ -34,7 +34,7 @@ class ProveedorController extends Controller
         $proveedor->email = $request->email;
         $proveedor->save();
 
-        return redirect()->back()->with('success', 'Proveedor registrado con éxito.');      
+        return redirect()->route('proveedores_index')->with('success', 'Proveedor registrado con éxito.');
     }
 
 
@@ -68,7 +68,7 @@ class ProveedorController extends Controller
         $proveedor->email = $request->email;
         $proveedor->save();
 
-        return redirect()->back()->with('success', 'Proveedor actualizado con éxito.');
+        return redirect()->route('proveedores_index')->with('success', 'Proveedor actualizado con éxito.');
     }
 
     /**
